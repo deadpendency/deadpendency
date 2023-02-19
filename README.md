@@ -63,7 +63,7 @@ And a bunch of other usual suspects in Haskell.
 ### Requirements
 
 * Haskell Stack.
-* Global GHC Install (eg. via [ghcup](https://www.haskell.org/ghcup/)).
+* Global GHC Install (currently needs 9.2.5) (eg. via [ghcup](https://www.haskell.org/ghcup/)).
 * Docker
 * [Haskell Lanauge Server](https://haskell-language-server.readthedocs.io/en/latest/) + Your Preferred Editor
 

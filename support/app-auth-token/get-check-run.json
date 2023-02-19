@@ -1,0 +1,1 @@
+{  "query": "query {    repository(owner:\"supurbdev\", name: \"supurb-next\") { object(oid: \"591f52d1fe6f57eb200bd9b59798714633bd02cc\") { ... on Commit { checkSuites(first: 10, filterBy: { appId: 51614 }) { edges { node { checkSuiteId: id checkRuns (first: 10, filterBy: { appId: 51614 }) { edges { node { checkRunId: id status completedAt name text } } } } } } } } } }"}

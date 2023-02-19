@@ -1,0 +1,11 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/..
+
+APP_ENV=${APP_ENV:-preprod} APP_LIVE=${APP_LIVE:-a} APP_LIVE_HOST="${APP_LIVE_HOST:-https://preprod-a-deadpendency-action-front-door-rnbiybubyq-uc.a.run.app}" terraform/app/common-front/quick-apply
+
+# beep so we know it has finished
+echo -ne '\007'
+echo -ne '\007'
+echo -ne '\007'

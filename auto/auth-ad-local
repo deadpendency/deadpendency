@@ -1,0 +1,8 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+sudo chmod -R a+rw ~/.config/gcloud
+
+gcloud auth application-default login

@@ -1,0 +1,9 @@
+{
+  "haskell": {
+    "plugin" : {
+      "importLens" : {
+        "codeLensOn" : false
+      }
+    }
+  }
+}

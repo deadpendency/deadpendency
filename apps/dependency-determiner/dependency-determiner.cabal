@@ -1,0 +1,283 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           dependency-determiner
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/dependency-determiner#readme>
+homepage:       https://github.com/githubuser/dependency-determiner#readme
+bug-reports:    https://github.com/githubuser/dependency-determiner/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        OtherLicense
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/dependency-determiner
+
+library
+  exposed-modules:
+      DD.AppGoogleScopes
+      DD.Effect.DetermineDependencies.Backend.DependencyLanguageFilesBackend
+      DD.Effect.DetermineDependencies.Backend.DetermineDependencyBackend
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.DotNet.CSharpNetProject
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.DotNet.DotNetInternal
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.DotNet.VisualBasicNetProject
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Golang.GoMod
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Haskell.HaskellCabal
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Haskell.PackageYaml
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Internal
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Java.BuildGradle
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Java.PomXml
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.JavaScript.PackageJson
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Php.ComposerJson
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Python.Pipfile
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Python.PyProjectToml
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Python.RequirementsTxt
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Python.SetupPy
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Ruby.Gemfile
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Ruby.Gemspec
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Rust.CargoManifest
+      DD.Effect.DetermineDependencies.Backend.LanguageFiles.Scala.BuildSbt
+      DD.Effect.DetermineDependencies.Backend.Model.CanDetermineDependencies
+      DD.Effect.DetermineDependencies.Backend.Model.LanguageDependencyFiles
+      DD.Effect.DetermineDependencies.Backend.Model.RawDepFileContent
+      DD.Effect.DetermineDependencies.Carrier.DetermineDependenciesAlwaysThrowC
+      DD.Effect.DetermineDependencies.Carrier.DetermineDependenciesGitHubC
+      DD.Effect.DetermineDependencies.Carrier.DetermineDependenciesRetC
+      DD.Effect.DetermineDependencies.DetermineDependencies
+      DD.Effect.DetermineDependencies.Model.DetermineDependenciesError
+      DD.Effect.DetermineDependencies.Model.DetermineDependenciesRequest
+      DD.Effect.DetermineDependencies.Model.DetermineDependenciesResult
+      DD.Handler.DependencyDeterminerHandler
+      DD.Loader.ComponentDetailsLoader
+      DD.Loader.ConfigLoader
+      DD.Model.AppContext
+      DD.Model.AppError
+      DD.Model.Config
+      DD.Model.StartupError
+      DD.Serve.Api
+      DD.Serve.AppHandler
+      DD.Serve.Server
+      DD.TheMain
+  other-modules:
+      Paths_dependency_determiner
+  hs-source-dirs:
+      src
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances
+  build-depends:
+      Cabal
+    , HsYAML
+    , aeson
+    , base-noprelude
+    , common
+    , containers
+    , fused-effects
+    , fused-effects-random
+    , fused-effects-th
+    , gogol
+    , gogol-pubsub
+    , hexml
+    , hexml-lens
+    , megaparsec
+    , nonempty-vector
+    , random
+    , servant
+    , servant-server
+    , text
+    , tomland
+    , unordered-containers
+    , vector
+    , wai
+    , warp
+  default-language: Haskell2010
+
+executable dependency-determiner-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_dependency_determiner
+  hs-source-dirs:
+      app
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , common
+    , dependency-determiner
+  default-language: Haskell2010
+
+test-suite dependency-determiner-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Effect.DetermineDependencies.Backend.DetermineDependencyBackendSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.DotNet.DotNetSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Golang.GoModSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Haskell.HaskellCabalSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Haskell.PackageYamlSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Java.BuildGradleSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Java.PomXmlSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.JavaScript.PackageJsonSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Php.ComposerJsonSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Python.PipfileSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Python.PyProjectTomlSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Python.RequirementsTxtSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Python.SetupPySpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Ruby.GemfileSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Ruby.GemspecSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Rust.CargoManifestSpec
+      Effect.DetermineDependencies.Backend.LanguageFiles.Scala.BuildSbtSpec
+      Gen.Model.DetermineDependencies.API
+      Handler.DependencyDeterminerHandlerSpec
+      Paths_dependency_determiner
+  hs-source-dirs:
+      test
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base-noprelude
+    , common
+    , common-test
+    , dependency-determiner
+    , fused-effects
+    , hedgehog
+    , hspec
+    , hspec-hedgehog
+    , nonempty-vector
+    , raw-strings-qq
+    , vector
+  default-language: Haskell2010
+
+benchmark package-load
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Paths_dependency_determiner
+  hs-source-dirs:
+      bench
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -rtsopts -with-rtsopts=-hm
+  build-depends:
+      Cabal
+    , base-noprelude
+    , common
+    , deepseq
+    , dependency-determiner
+    , req
+    , streamly
+    , weigh
+  default-language: Haskell2010

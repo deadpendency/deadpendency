@@ -1,0 +1,6 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+WORK_DIR='app' APP_COMPONENT='pipeline' auto/state "$@"

@@ -1,0 +1,20 @@
+#!/bin/bash
+set -euo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+function update_file() {
+  local DOCKER_FILE=$1
+  docker-compose run --rm -T dfresh update "$DOCKER_FILE"
+}
+
+update_file docker-compose.yml &
+update_file support/app/Dockerfile &
+update_file support/app/Dockerfile-base &
+update_file support/app-front/Dockerfile &
+update_file support/gcloud/Dockerfile &
+update_file support/terraform/Dockerfile &
+
+wait
+
+echo "All Docker files are fresh"

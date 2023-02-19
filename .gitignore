@@ -1,0 +1,19 @@
+.stack-work
+.hie
+*.hie
+*~
+dist
+terraform/**/.terraform
+terraform/**/outputs
+terraform/**/artifacts
+terraform/**/terraform.tfstate*
+terraform/**/.terraform.tfstate*
+terraform/**/.terraform.lock.hcl
+apps/temp/*.json
+support/app-auth-token/*.pem
+
+#  profiling stuff
+*.aux
+*.ps
+*.hp
+*.prof

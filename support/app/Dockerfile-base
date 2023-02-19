@@ -1,0 +1,11 @@
+FROM debian:buster-slim@sha256:5dbce817ee72802025a38a388237b0ea576aa164bc90b7102b73aa42fef4d713
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    libgmp10 \
+    ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
+
+RUN groupadd -r appuser && useradd -r -m -g appuser appuser
+
+COPY apps/resource /app/resource

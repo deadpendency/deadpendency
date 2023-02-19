@@ -1,0 +1,57 @@
+additional-dependency-files:
+  - path: apps/common/package.yaml
+    type: hpack-package-yaml
+  - path: apps/common-test/package.yaml
+    type: hpack-package-yaml
+  - path: apps/check-run-creator/package.yaml
+    type: hpack-package-yaml
+  - path: apps/dependency-determiner/package.yaml
+    type: hpack-package-yaml
+  - path: apps/dependency-fetcher/package.yaml
+    type: hpack-package-yaml
+  - path: apps/dev-deps/package.yaml
+    type: hpack-package-yaml
+  - path: apps/front-door/package.yaml
+    type: hpack-package-yaml
+  - path: apps/report-generator/package.yaml
+    type: hpack-package-yaml
+  - path: apps/run-finalizer/package.yaml
+    type: hpack-package-yaml
+  - path: apps/error-processor/package.yaml
+    type: hpack-package-yaml
+  - path: apps/script-runner/package.yaml
+    type: hpack-package-yaml
+
+rules-config:
+  no-recent-commit: disabled
+  single-recent-author: disabled
+
+ignore-failures:
+  haskell:
+    # unhealthy but required
+    - http-types
+    - mtl
+    - hexml
+    - raw-strings-qq
+    - stringsearch
+    - jwt
+    - gogol
+    - gogol-cloudtrace
+    - gogol-logging
+    - gogol-monitoring
+    - gogol-pubsub
+    - servant-github-webhook
+    - base-noprelude
+    - HsYAML
+    - weigh
+    - hspec-hedgehog
+    - tagsoup
+    - these
+    - fused-effects-random
+
+    # not in hackage
+    - gogol-secretmanager
+
+    # deadpendency not smart enough to ignore internal packages
+    - common
+    - common-test

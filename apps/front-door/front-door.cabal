@@ -1,0 +1,185 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           front-door
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/front-door#readme>
+homepage:       https://github.com/githubuser/front-door#readme
+bug-reports:    https://github.com/githubuser/front-door/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        OtherLicense
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/front-door
+
+library
+  exposed-modules:
+      FD.AppGoogleScopes
+      FD.Handler.CheckRunHandler
+      FD.Handler.CheckSuiteHandler
+      FD.Handler.InstallationHandler
+      FD.Handler.InstallationRepositoriesHandler
+      FD.Handler.MarketplacePurchaseHandler
+      FD.Loader.ComponentDetailsLoader
+      FD.Loader.ConfigLoader
+      FD.Loader.GitHubKeyLoader
+      FD.Model.AppContext
+      FD.Model.AppError
+      FD.Model.Config
+      FD.Model.LoadedGitHubKey
+      FD.Model.StartupError
+      FD.Serve.Api
+      FD.Serve.AppHandler
+      FD.Serve.Server
+      FD.TheMain
+  other-modules:
+      Paths_front_door
+  hs-source-dirs:
+      src
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances
+  build-depends:
+      aeson
+    , base-noprelude
+    , common
+    , fused-effects
+    , fused-effects-random
+    , github-webhooks
+    , gogol
+    , nonempty-vector
+    , random
+    , servant
+    , servant-github-webhook
+    , servant-server
+    , wai
+    , warp
+  default-language: Haskell2010
+
+executable front-door-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_front_door
+  hs-source-dirs:
+      app
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , common
+    , front-door
+  default-language: Haskell2010
+
+test-suite front-door-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Gen.ChecksEventGen
+      Gen.CommonEventGen
+      Handler.CheckRunHandlerSpec
+      Handler.CheckSuiteHandlerSpec
+      Paths_front_door
+  hs-source-dirs:
+      test
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , common
+    , common-test
+    , front-door
+    , fused-effects
+    , github-webhooks
+    , hedgehog
+    , hspec
+    , hspec-hedgehog
+    , servant-github-webhook
+    , vector
+  default-language: Haskell2010

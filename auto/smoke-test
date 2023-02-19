@@ -1,0 +1,15 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+SMOKE_RESULT=$(APP_ENV="$APP_ENV" gcloud/auto/run-smoke-test)
+
+if [ "$SMOKE_RESULT" = "\"Success\"" ];
+then
+    echo "Smoke Successful"
+else
+    echo "Smoke Failed"
+    printf "%b" "$SMOKE_RESULT"
+    exit 1
+fi

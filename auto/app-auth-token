@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+auto/up-docker-volumes > /dev/null
+
+docker-compose build app-auth-token > /dev/null
+
+docker-compose run --rm app-auth-token

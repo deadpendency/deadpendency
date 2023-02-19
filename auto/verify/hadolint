@@ -1,0 +1,17 @@
+#!/bin/bash
+set -Euo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+auto/up-docker-volumes
+
+echo 'Checking support/app/Dockerfile'
+docker-compose run --rm hadolint < support/app/Dockerfile
+echo 'Checking support/app-auth-token/Dockerfile'
+docker-compose run --rm hadolint < support/app-auth-token/Dockerfile
+echo 'Checking support/app-front/Dockerfile'
+docker-compose run --rm hadolint < support/app-front/Dockerfile
+echo 'Checking support/gcloud/Dockerfile'
+docker-compose run --rm hadolint < support/gcloud/Dockerfile
+echo 'Checking support/terraform/Dockerfile'
+docker-compose run --rm hadolint < support/terraform/Dockerfile

@@ -1,0 +1,66 @@
+defaults:
+  local: ../package-defaults.yaml
+
+name: check-run-creator
+version: 0.1.0.0
+github: "githubuser/check-run-creator"
+license: OtherLicense
+author: "Author name here"
+maintainer: "example@example.com"
+copyright: "2019 Author name here"
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/githubuser/check-run-creator#readme>
+
+dependencies:
+  - base-noprelude
+  - common
+
+library:
+  source-dirs: src
+  dependencies:
+    - servant
+    - servant-server
+    - fused-effects
+    - fused-effects-random
+    - random
+    - wai
+    - warp
+    - gogol
+    - gogol-pubsub
+    - aeson
+
+executables:
+  check-run-creator-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - check-run-creator
+
+tests:
+  check-run-creator-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - check-run-creator
+      - common-test
+
+      - fused-effects
+
+      - hspec
+      - hspec-hedgehog
+      - hedgehog

@@ -1,0 +1,315 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           dependency-fetcher
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/dependency-fetcher#readme>
+homepage:       https://github.com/githubuser/dependency-fetcher#readme
+bug-reports:    https://github.com/githubuser/dependency-fetcher/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        OtherLicense
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/dependency-fetcher
+
+library
+  exposed-modules:
+      DF.AppGoogleScopes
+      DF.Effect.FetchDependencies.Carrier.FetchDependenciesRegistryC
+      DF.Effect.FetchDependencies.Carrier.FetchDependenciesRetC
+      DF.Effect.FetchDependencies.FetchDependencies
+      DF.Effect.FetchDependencies.Model.FetchDependenciesError
+      DF.Effect.FetchDependencies.Model.FetchDependenciesRequest
+      DF.Effect.FetchDependencies.Model.FetchDependenciesResult
+      DF.Effect.FetchDependencies.Model.FetchDependencyRegistryException
+      DF.Effect.FetchRegistryRepoInfo.Backend.Internal
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Crates.Crates
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Crates.CratesPackage
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Hackage.Hackage
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Hackage.HackageCabalRepo
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Hackage.HackageDeprecation
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Hackage.HackageLatestRevision
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Internal
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.Maven
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.MavenDetermineLatestRelease
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.MavenLatestReleaseTime
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.MavenRepositoryAndAliveness
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.Version.MavenLatestVersion
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.Version.MavenScalaLatestVersionText
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Npm.Npm
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Npm.NpmPackage
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.NuGet.NuGet
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.NuGet.NuGetAdditionalDetails
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.NuGet.NuGetLatestVersion
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.NuGet.NuGetRepository
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Packagist.Packagist
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Packagist.PackagistPackage
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.PkgGoDev.PkgGoDev
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.PkgGoDev.PkgGoDevLatestReleaseTime
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.PkgGoDev.PkgGoDevRepository
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Pypi.Pypi
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Pypi.PypiPackage
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.RubyGems.RubyGems
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.RubyGems.RubyGemsPackage
+      DF.Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.RubyGems.RubyGemsVersion
+      DF.Effect.FetchRegistryRepoInfo.Backend.Model.FetchDependencyRegistryError
+      DF.Effect.FetchRegistryRepoInfo.Backend.RegistryFetchOrchestrateBackend
+      DF.Effect.FetchRegistryRepoInfo.Backend.RegistryFetchRegistryBackend
+      DF.Effect.FetchRegistryRepoInfo.Carrier.FetchRegistryRepoInfoC
+      DF.Effect.FetchRegistryRepoInfo.FetchRegistryRepoInfo
+      DF.Effect.FetchRegistryRepoInfo.Model.FetchRegistryRepoInfoResult
+      DF.Effect.FetchRepoStats.Backend.RepoStatsFetchBackend
+      DF.Effect.FetchRepoStats.Carrier.FetchRepoStatsGitHubC
+      DF.Effect.FetchRepoStats.FetchRepoStats
+      DF.Effect.FetchRepoStats.Model.DependencyFetchResult
+      DF.Effect.Model.FetchRegistryWithRepo
+      DF.Handler.DependencyFetcherHandler
+      DF.Loader.ComponentDetailsLoader
+      DF.Loader.ConfigLoader
+      DF.Model.AppContext
+      DF.Model.AppError
+      DF.Model.Config
+      DF.Model.StartupError
+      DF.Serve.Api
+      DF.Serve.AppHandler
+      DF.Serve.Server
+      DF.TheMain
+  other-modules:
+      Paths_dependency_fetcher
+  hs-source-dirs:
+      src
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances
+  build-depends:
+      Cabal
+    , aeson
+    , base-noprelude
+    , bytestring
+    , common
+    , containers
+    , fused-effects
+    , fused-effects-random
+    , fused-effects-th
+    , gogol
+    , gogol-pubsub
+    , hexml
+    , hexml-lens
+    , http-client
+    , http-types
+    , json-stream
+    , megaparsec
+    , modern-uri
+    , mtl
+    , nonempty-vector
+    , random
+    , req
+    , servant
+    , servant-server
+    , streamly
+    , tagsoup
+    , text
+    , unordered-containers
+    , vector
+    , versions
+    , wai
+    , warp
+  default-language: Haskell2010
+
+executable dependency-fetcher-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_dependency_fetcher
+  hs-source-dirs:
+      app
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , common
+    , dependency-fetcher
+  default-language: Haskell2010
+
+test-suite dependency-fetcher-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Effect.FetchRegistryRepoInfo.Backend.InternalSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.CompareDependencyRegistryInfo
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.CratesSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.HackageSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.MavenDetermineLatestReleaseSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Maven.MavenSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Npm.NpmAllSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Npm.NpmIndex
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Npm.NpmSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.NuGetSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Packagist.PackagistAllSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Packagist.PackagistIndex
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Packagist.PackagistSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.PkgGoDev.PkgGoDevRepositorySpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.PkgGoDev.PkgGoDevSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Pypi.PypiAllSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Pypi.PypiIndex
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.Pypi.PypiSpec
+      Effect.FetchRegistryRepoInfo.Backend.LanguageRegistryFiles.RubyGemsSpec
+      Effect.FetchRepoStats.Backend.RepoStatsFetchBackendSpec
+      Gen.Effect.FetchDependencies
+      Handler.DependencyFetcherHandlerSpec
+      Paths_dependency_fetcher
+  hs-source-dirs:
+      test
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base-noprelude
+    , common
+    , common-test
+    , dependency-fetcher
+    , fused-effects
+    , hedgehog
+    , hspec
+    , hspec-hedgehog
+    , modern-uri
+    , nonempty-vector
+    , req
+    , streamly
+    , tagsoup
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+benchmark package-load
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Paths_dependency_fetcher
+  hs-source-dirs:
+      bench
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -rtsopts -with-rtsopts=-hm
+  build-depends:
+      base-noprelude
+    , common
+    , deepseq
+    , dependency-fetcher
+    , nonempty-vector
+    , streamly
+    , vector
+    , weigh
+  default-language: Haskell2010

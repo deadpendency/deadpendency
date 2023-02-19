@@ -1,0 +1,19 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+IMAGE="gcr.io/dgtw-deadpendency-action-2/deadpendency-action-app-front:3"
+
+gcloud secrets versions access latest --secret=app-pusher-key-secret > /tmp/deadpendency-app-pusher.json
+
+gcloud auth activate-service-account \
+  --key-file /tmp/deadpendency-app-pusher.json
+
+gcloud auth configure-docker --quiet
+
+docker build support/app-front \
+  -f support/app-front/Dockerfile \
+  --tag $IMAGE
+
+docker push $IMAGE

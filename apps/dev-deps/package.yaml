@@ -1,0 +1,26 @@
+name: dev-deps
+version: 0.1.0.0
+github: "githubuser/dev-deps"
+license: OtherLicense
+author: "Author name here"
+maintainer: "example@example.com"
+copyright: "2019 Author name here"
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# dev-deps to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/githubuser/dev-deps#readme>
+
+# A place to put dependencies that are only used in development, without them being included in any compiled binaries
+
+dependencies:
+  - base
+
+  - weeder
+
+library:
+  source-dirs: src

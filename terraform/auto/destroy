@@ -1,0 +1,6 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+auto/terraform destroy

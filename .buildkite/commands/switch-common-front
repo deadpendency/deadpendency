@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+NON_LIVE=$(buildkite-agent meta-data get "app_non_live")
+NON_LIVE_URL=$(APP_ENV=prod APP_LIVE="$NON_LIVE" gcloud/auto/determine-fd-url)
+
+APP_ENV=prod APP_LIVE="$NON_LIVE" APP_LIVE_HOST="$NON_LIVE_URL" terraform/app/common-front/plan
+APP_ENV=prod APP_LIVE="$NON_LIVE" APP_LIVE_HOST="$NON_LIVE_URL" terraform/app/common-front/apply-update

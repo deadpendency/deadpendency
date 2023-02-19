@@ -1,0 +1,14 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+APP_LIVE=$(buildkite-agent meta-data get "app_live")
+
+if APP_ENV=prod APP_LIVE="$APP_LIVE" gcloud/auto/trigger-dlq-replay; then
+    echo "Replay successful"
+else
+    echo "Replay failure"
+
+    exit 1;
+fi

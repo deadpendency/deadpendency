@@ -1,0 +1,5 @@
+ignored:
+  # pinning is not necessary if you have weak dependency on something and the image is updated often, more than the thing you might pin
+  - DL3008
+  - DL3018
+  - DL3059

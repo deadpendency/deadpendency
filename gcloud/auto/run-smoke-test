@@ -1,0 +1,6 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+auto/gcloud-environment ./bin/run-smoke-test

@@ -1,0 +1,9 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../../.. || exit
+
+auto/dev-environment \
+  stack build dev-deps \
+    --dependencies-only \
+    --exec 'stan --hiedir ./apps/common/.hie --cabal-file-path ./apps/common/common.cabal'

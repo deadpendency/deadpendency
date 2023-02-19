@@ -1,0 +1,34 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+AUTH_TOKEN=$(auto/app-auth-token | tr -d '\r')
+
+show_user_details () {
+
+  USER_NUMBER="$1"
+
+  USER_DETAILS=$(curl -s -H "Authorization: Bearer $AUTH_TOKEN" -H "Accept: application/vnd.github+json" https://api.github.com/app/installations | jq ".[$USER_NUMBER]")
+
+  REPOSITORY_SELECTION=$(echo "$USER_DETAILS" | jq -r '.repository_selection')
+
+  if [ "$REPOSITORY_SELECTION" == "selected" ]
+  then
+    REPO_OWNER=$(echo "$USER_DETAILS" | jq -r '.account.login')
+
+    INSTALL_ID=$(curl -s -H "Authorization: Bearer $AUTH_TOKEN" -H "Accept: application/vnd.github+json" https://api.github.com/app/installations | jq ".[] | select(.account.login == \"$REPO_OWNER\") | .id")
+
+    INSTALLATION_TOKEN=$(curl -s -X POST -H "Authorization: Bearer $AUTH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/app/installations/$INSTALL_ID/access_tokens" | jq -r '.token')
+
+    echo "Specific selected"
+    curl -s -H "Authorization: token $INSTALLATION_TOKEN" -H "Accept: application/vnd.github+json" https://api.github.com/installation/repositories | jq -r '.repositories | map(.html_url)'
+  else
+    echo "All selected"
+    echo "$USER_DETAILS" | jq -r '.account.html_url'
+  fi
+}
+
+show_user_details 0
+show_user_details 1
+show_user_details 2

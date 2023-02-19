@@ -1,0 +1,22 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+gcloud secrets versions access latest --secret=general-cloud-run-invoker-key-secret > /tmp/general-cr-invoker-account.json
+
+gcloud auth activate-service-account \
+  --key-file /tmp/general-cr-invoker-account.json  > /dev/null 2>&1
+
+SCRIPT_RUNNER_URL=$(gcloud/bin/get-script-runner-live-url)
+
+EMIT_METRIC="${EMIT_METRIC-false}"
+
+if [ "$EMIT_METRIC" = "true" ];
+then
+    SMOKE_URL="$SCRIPT_RUNNER_URL/run-smoke-test?emit-metric=true"
+else
+    SMOKE_URL="$SCRIPT_RUNNER_URL/run-smoke-test"
+fi
+
+curl -X POST -H "Authorization: Bearer $(gcloud auth print-identity-token)" "$SMOKE_URL"

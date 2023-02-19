@@ -1,0 +1,12 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+LIVE=$(buildkite-agent meta-data get "app_live")
+LIVE_URL=$(APP_ENV=prod APP_LIVE="$LIVE" gcloud/auto/determine-fd-url)
+
+APP_ENV=prod APP_LIVE="$LIVE" APP_LIVE_HOST="$LIVE_URL" terraform/app/common-front/plan
+APP_ENV=prod APP_LIVE="$LIVE" APP_LIVE_HOST="$LIVE_URL" terraform/app/common-front/apply-update
+
+.buildkite/commands/sleep-post-deploy

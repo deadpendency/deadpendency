@@ -1,0 +1,11 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+auto/clean
+auto/verify/docker-freshness-check
+auto/verify/hadolint
+auto/verify/shellcheck
+auto/verify/yamllint
+auto/verify/haskell/all

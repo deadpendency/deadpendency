@@ -1,0 +1,16 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+# wait post switch
+.buildkite/commands/sleep-post-deploy
+
+if APP_ENV=prod .buildkite/commands/smoke-test; then
+    echo "Smoke Test Successful"
+else
+    echo "Smoke Test Failure"
+    .buildkite/commands/rollback-to-old-live
+    APP_ENV=prod .buildkite/commands/smoke-test
+    exit 1;
+fi

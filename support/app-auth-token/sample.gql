@@ -1,0 +1,37 @@
+query {
+	repository(owner: "deadpendency", name: "deadpendency-test-repo") {
+    ref(qualifiedName: "refs/heads/master") {
+      target {
+        ... on Commit {
+          tree {
+            entries {
+              object {
+                ... on Blob {
+                  text
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+query {
+	repository(owner: "deadpendency", name: "deadpendency-test-repo") {
+		packageFile: object(expression: "cc4aefe8b6bb3b0fecb1a72b8f11fa2eb1264b2e:package.json") {
+    	... on Blob {
+        isTruncated
+        text
+      }
+    }
+
+    lockFile: object(expression: "cc4aefe8b6bb3b0fecb1a72b8f11fa2eb1264b2e:package-lock.json") {
+    	... on Blob {
+        isTruncated
+        text
+      }
+    }
+  }
+}

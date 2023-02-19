@@ -1,0 +1,19 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+LIVE=$(APP_ENV=prod gcloud/auto/determine-app-live)
+
+if [ "$LIVE" = "a" ];
+then
+    buildkite-agent meta-data set "app_live" "a"
+    buildkite-agent meta-data set "app_non_live" "b"
+elif [ "$LIVE" = "b" ];
+then
+    buildkite-agent meta-data set "app_live" "b"
+    buildkite-agent meta-data set "app_non_live" "a"
+else
+    echo "Unexpected live: $LIVE"
+    exit 1
+fi

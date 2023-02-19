@@ -1,0 +1,125 @@
+steps:
+  # big
+  - label: ':haskell: Refresh Stack Cache'
+    command: auto/build-deps
+    key: stack-cache
+    concurrency: 1
+    concurrency_group: 'deadpendency/refresh-stack-cache'
+
+  - label: ':haskell: Refresh Tools Cache'
+    command: auto/build-tools-deps
+    key: stack-latest-cache
+    concurrency: 1
+    concurrency_group: 'deadpendency/refresh-stack-latest-cache'
+
+  # expensive so we start first
+  - label: ':building_construction: Build Executables'
+    branches: master
+    command: auto/build-to-local
+    depends_on: stack-cache
+    plugins:
+      - artifacts#v1.7.0:
+          upload: dist/*
+
+  - label: ':haskell: Haskell Checks'
+    command: auto/verify/haskell/ci-build-check
+    depends_on: stack-cache
+
+  - label: ':lint-remover: HLint'
+    command: auto/verify/haskell/hlint ALL
+    depends_on: stack-latest-cache
+
+  - label: ':sparkles: Ormolu Check'
+    command: auto/verify/haskell/ormolu ALL
+    depends_on: stack-latest-cache
+
+  # other checks
+
+  - label: ':docker: Docker Freshness Check'
+    command: auto/verify/docker-freshness-check
+
+  - label: ':hadolint: Docker Lint'
+    command: auto/verify/hadolint
+
+  - label: ':bash: Shell Lint'
+    command: auto/verify/shellcheck
+
+  - label: ':yaml: YAML Lint'
+    command: auto/verify/yamllint
+
+  - label: ':nginx: Check Nginx Proxy Config'
+    command: auto/verify/nginx-config-check
+
+  # terraform
+
+  - label: ':terraform: Format Check'
+    command: terraform/auto/verify/format-check
+
+  - label: ':terraform: Validate'
+    command: terraform/auto/verify/validate
+
+  # prep
+
+  - label: ':docker: Prepare App Base'
+    branches: master
+    command: auto/prepare-to-release
+
+  - wait
+
+  - label: ':docker: Release to registry'
+    branches: master
+    command: gcloud/auto/release-app
+    plugins:
+      - artifacts#v1.7.0:
+          download: dist/*
+
+  - wait
+
+  - label: ':terraform: Pipeline Plan Preprod'
+    branches: master
+    command: terraform/app/pipeline/plan
+    concurrency: 1
+    concurrency_group: 'deadpendency-preprod/deploy'
+    env:
+      APP_ENV: preprod
+      APP_LIVE: a
+    plugins:
+      - artifacts#v1.7.0:
+          upload: terraform/app/pipeline/preprod-a/artifacts/terraform-plan-output.data
+
+  - wait
+
+  - label: ':terraform: Pipeline Apply Changes Preprod'
+    branches: master
+    command: terraform/app/pipeline/apply-update
+    concurrency: 1
+    concurrency_group: 'deadpendency-preprod/deploy'
+    env:
+      APP_ENV: preprod
+      APP_LIVE: a
+    plugins:
+      - artifacts#v1.7.0:
+          download: terraform/app/pipeline/preprod-a/artifacts/terraform-plan-output.data
+
+
+  - wait
+
+  - label: ':sleeping: Wait For Deploy'
+    branches: master
+    command: .buildkite/commands/sleep-post-deploy
+
+  - wait
+
+  - label: ':smoking: Smoke Test Preprod'
+    branches: master
+    command: auto/smoke-test
+    env:
+      APP_ENV: preprod
+      APP_LIVE: a
+
+  - block: ":rocket: Release To Prod"
+    branches: master
+
+  - label: ':label: Tag + Update Release Branch'
+    branches: master
+    command: auto/tag-new-release

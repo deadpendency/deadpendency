@@ -1,0 +1,66 @@
+ghc-options:
+  # compiler flags
+  - -O0
+  - -fhide-source-paths
+  - -freverse-errors
+  # warnings
+  - -Wall
+  - -Wcompat
+  - -Widentities
+  - -Wincomplete-record-updates
+  - -Wincomplete-uni-patterns
+  - -Wmissing-export-lists
+  - -Wpartial-fields
+  - -Wredundant-constraints
+  - -Wmissing-deriving-strategies
+  - -fwarn-tabs
+  - -Wunused-packages
+  - -Winvalid-haddock
+  - -Wunicode-bidirectional-format-characters
+  - -Werror=unicode-bidirectional-format-characters
+
+  # based on https://mobile.twitter.com/ChShersh/status/1558398413342924801/photo/1
+
+  # 9.2
+
+  # - -Wredundant-bang-patterns
+  # - -Woperator-whitespace
+  # - -Wimplicit-lift
+
+  # 9.4
+
+  # - -Wredundant-strictness-flags
+
+  # will be implied by -Wall from ghc 9.2
+  - -Wnoncanonical-monad-instances
+  - -Wnoncanonical-monoid-instances
+
+# these also exist in .hlint.yaml + ormolu-exec
+default-extensions:
+  - ApplicativeDo
+  - BlockArguments
+  - DeriveFunctor
+  - DeriveGeneric
+  - DerivingStrategies
+  - DuplicateRecordFields
+  - FlexibleContexts
+  - FlexibleInstances
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - ImportQualifiedPost
+  - KindSignatures
+  - LambdaCase
+  - MultiParamTypeClasses
+  - MultiWayIf
+  - NamedFieldPuns
+  - OverloadedLabels
+  - OverloadedStrings
+  - QuasiQuotes
+  - RankNTypes
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - StrictData
+  - TupleSections
+  - TypeApplications
+  - TypeOperators
+  - UndecidableInstances

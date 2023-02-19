@@ -1,0 +1,171 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           check-run-creator
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/check-run-creator#readme>
+homepage:       https://github.com/githubuser/check-run-creator#readme
+bug-reports:    https://github.com/githubuser/check-run-creator/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        OtherLicense
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/check-run-creator
+
+library
+  exposed-modules:
+      CRC.AppGoogleScopes
+      CRC.Handler.CheckRunCreatorHandler
+      CRC.Loader.ComponentDetailsLoader
+      CRC.Loader.ConfigLoader
+      CRC.Model.AppContext
+      CRC.Model.AppError
+      CRC.Model.Config
+      CRC.Model.StartupError
+      CRC.Serve.Api
+      CRC.Serve.AppHandler
+      CRC.Serve.Server
+      CRC.TheMain
+  other-modules:
+      Paths_check_run_creator
+  hs-source-dirs:
+      src
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances
+  build-depends:
+      aeson
+    , base-noprelude
+    , common
+    , fused-effects
+    , fused-effects-random
+    , gogol
+    , gogol-pubsub
+    , random
+    , servant
+    , servant-server
+    , wai
+    , warp
+  default-language: Haskell2010
+
+executable check-run-creator-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_check_run_creator
+  hs-source-dirs:
+      app
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , check-run-creator
+    , common
+  default-language: Haskell2010
+
+test-suite check-run-creator-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Handler.CheckRunCreatorHandlerSpec
+      Paths_check_run_creator
+  hs-source-dirs:
+      test
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , check-run-creator
+    , common
+    , common-test
+    , fused-effects
+    , hedgehog
+    , hspec
+    , hspec-hedgehog
+  default-language: Haskell2010

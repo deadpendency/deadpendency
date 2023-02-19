@@ -1,0 +1,48 @@
+resolver: lts-20.11
+name: custom-snapshot
+packages:
+  # waiting on https://github.com/haskell-hvr/base-noprelude/pull/18
+  # or this stack issue https://github.com/commercialhaskell/stack/issues/5077
+  - git: https://github.com/AlistairB/base-noprelude.git
+    commit: 1ef68493f2f769102f735b2190d30e18e28b09fe
+
+  # waiting on release
+  - git: https://github.com/emilypi/nonempty-vector.git
+    commit: 33a01d3d9a29203dfc7b31bcaafdc24149123ca5
+
+
+  # waiting on https://github.com/tsani/servant-github-webhook/pull/18
+  - git: https://github.com/AlistairB/servant-github-webhook.git
+    commit: f8cb8bc10d3e9d275fa995b0d01ba2d1eeaa700b
+
+  # no issue
+  # Need my fork for secret manager
+  - git: https://github.com/AlistairB/gogol.git
+    commit: a16cd9d3c49c29a79b41d20dddbe01fe03c78809
+    subdirs:
+      - core
+      - gogol
+      - gogol-logging
+      - gogol-pubsub
+      - gogol-cloudtrace
+      - gogol-monitoring
+      - gogol-secretmanager
+
+  # useful for debugging with longer parser messages
+  # - git: https://github.com/AlistairB/megaparsec.git
+  #   commit: 5ecbab94ccb4fe6247c54089f4128378ed1d5a32
+
+  # not in stackage
+
+  - fused-effects-th-0.1.0.3
+
+  - fused-effects-random-1.1.0.0
+
+  - tomland-1.3.3.2
+  - validation-selective-0.1.0.1
+
+  - weeder-2.4.1
+
+  # Using Cabal-syntax-3.8.1.0 exclusively results in stack issue - https://github.com/commercialhaskell/stack/issues/5691
+  # In fact using Cabal-3.8.1.0 still has this problem
+  # - Cabal-syntax-3.8.1.0

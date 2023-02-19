@@ -1,0 +1,208 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           script-runner
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/script-runner#readme>
+homepage:       https://github.com/githubuser/script-runner#readme
+bug-reports:    https://github.com/githubuser/script-runner/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        OtherLicense
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/script-runner
+
+library
+  exposed-modules:
+      SR.AppGoogleScopes
+      SR.Effect.FetchInstallationsCount.Backend.FetchInstallationsCountBackend
+      SR.Effect.FetchInstallationsCount.Carrier.FetchInstallationsCountGitHubC
+      SR.Effect.FetchInstallationsCount.FetchInstallationsCount
+      SR.Effect.RunSmokeTest.Backend.Common
+      SR.Effect.RunSmokeTest.Backend.Model.SmokeConfiguration
+      SR.Effect.RunSmokeTest.Backend.SmokeRepository
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeDotNet
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeGolang
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeHaskell
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeJavaGradle
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeJavaMaven
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeJavaScript
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokePhp
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokePythonPipfile
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokePythonRequirementsTxt
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeRuby
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeRust
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeScalaMaven
+      SR.Effect.RunSmokeTest.Backend.Smokes.SmokeUnknownLanguage
+      SR.Effect.RunSmokeTest.Carrier.RunSmokeTestGitHubC
+      SR.Effect.RunSmokeTest.Model.SmokeResult
+      SR.Effect.RunSmokeTest.RunSmokeTest
+      SR.Effect.StreamQueueMessages.Carrier.StreamQueueMessagesGooglePubSubC
+      SR.Effect.StreamQueueMessages.Model.StreamQueueMessagesRequest
+      SR.Effect.StreamQueueMessages.StreamQueueMessages
+      SR.Handler.EmitTotalInstallsMetricHandler
+      SR.Handler.ReplayFailedHandler
+      SR.Handler.RunSmokeTestHandler
+      SR.Loader.ComponentDetailsLoader
+      SR.Loader.ConfigLoader
+      SR.Model.AppContext
+      SR.Model.AppError
+      SR.Model.Config
+      SR.Model.StartupError
+      SR.Serve.Api
+      SR.Serve.AppHandler
+      SR.Serve.Server
+      SR.TheMain
+  other-modules:
+      Paths_script_runner
+  hs-source-dirs:
+      src
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances
+  build-depends:
+      Diff
+    , aeson
+    , async
+    , base-noprelude
+    , common
+    , conduit
+    , fused-effects
+    , fused-effects-th
+    , github-rest
+    , gogol
+    , gogol-pubsub
+    , modern-uri
+    , mtl
+    , pretty-simple
+    , req
+    , servant
+    , servant-server
+    , streamly
+    , text
+    , vector
+    , wai
+    , warp
+  default-language: Haskell2010
+
+executable script-runner-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_script_runner
+  hs-source-dirs:
+      app
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , common
+    , script-runner
+  default-language: Haskell2010
+
+test-suite script-runner-test
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Spec
+      Spec.SmokeAllSpec
+      Paths_script_runner
+  hs-source-dirs:
+      test
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      base-noprelude
+    , common
+    , common-test
+    , hspec
+    , relude
+    , script-runner
+    , vector
+  default-language: Haskell2010

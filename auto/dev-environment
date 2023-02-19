@@ -1,0 +1,27 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+BUILDKITE=${BUILDKITE-false}
+RUN_DOCKER=${RUN_DOCKER-false}
+FILE_WATCH=${FILE_WATCH-false}
+
+if [ "$BUILDKITE" = true ];
+then
+    SERVICE=${SERVICE-ci}
+    RUN_DOCKER=true
+else
+    SERVICE=dev
+fi
+
+if [ "$RUN_DOCKER" = true ];
+then
+    auto/up-docker-volumes
+
+    # Run dev script or use what is passed in as arguments
+    docker-compose run --rm $SERVICE "$@"
+else
+    # I want to conditionally file-watch based on ENV, however it seems that any touching of the arguments will kill the quotes in the command ://
+    exec "$@"
+fi

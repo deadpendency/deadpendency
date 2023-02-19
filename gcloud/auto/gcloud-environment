@@ -1,0 +1,27 @@
+#!/bin/bash
+set -Eeuo pipefail
+# determine-app-live must only output the result, so we can't 'x' this
+
+cd "$(dirname "$0")"/.. || exit
+
+../auto/up-docker-volumes > /dev/null 2>&1
+
+docker-compose build gcloud > /dev/null 2>&1
+
+BUILDKITE=${BUILDKITE-false}
+
+if [ "$BUILDKITE" = true ];
+then
+  docker-compose  \
+    --file ../docker-compose.yml \
+    run \
+    --rm \
+    gcloud "$@"
+else
+  docker-compose  \
+    --file ../docker-compose.yml \
+    run \
+    --rm \
+    -v ~/.config/gcloud:/root/.config/gcloud \
+    gcloud bash -c "./bin/run-with-reversion $*"
+fi

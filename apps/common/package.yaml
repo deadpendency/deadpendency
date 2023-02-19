@@ -1,0 +1,71 @@
+defaults:
+  local: ../package-defaults.yaml
+
+name: common
+version: 0.1.0.0
+github: "githubuser/common"
+license: OtherLicense
+author: "Author name here"
+maintainer: "example@example.com"
+copyright: "2019 Author name here"
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/githubuser/common#readme>
+
+library:
+  source-dirs: src
+  dependencies:
+    - base-noprelude
+    - relude
+    - lens
+    - fused-effects
+    - fused-effects-random
+    - fused-effects-th
+    - gogol
+    - gogol-logging
+    - gogol-pubsub
+    - gogol-cloudtrace
+    - gogol-monitoring
+    - gogol-secretmanager
+    - aeson
+    - http-client
+    - http-client-tls
+    - http-types
+    - text
+    - req
+    - morpheus-graphql-core
+    - morpheus-graphql-client
+    - time
+    - jwt
+    - cryptonite
+    - x509
+    - x509-store
+    - nonempty-vector
+    - vector
+    - megaparsec
+    - wide-word
+    - lucid2
+    - tagsoup
+    - containers
+    - unordered-containers
+    - generic-lens
+    - html-entities
+    - safe-exceptions
+    - HsYAML
+    - vector-algorithms
+    - hedis
+    - pretty-simple
+    - stringsearch
+    - these
+    - these-lens
+    - modern-uri
+    - streamly
+    - github-rest
+    - Glob
+    - base64

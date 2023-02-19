@@ -1,0 +1,15 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../../.. || exit
+
+echo "GHC Warning Check + Tests"
+
+auto/dev-environment \
+  stack test \
+    --pedantic \
+    --ghc-options '-fwrite-ide-info'
+
+echo "Weeder Check"
+
+./auto/verify/haskell/weeder

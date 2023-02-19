@@ -1,0 +1,12 @@
+extends: default
+
+rules:
+  comments:
+    min-spaces-from-content: 1
+  comments-indentation: false
+  document-start:
+    present: false
+  indentation:
+    spaces: 2
+    indent-sequences: true
+  line-length: disable

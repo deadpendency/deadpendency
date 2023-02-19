@@ -1,0 +1,12 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")" || exit
+
+./ormolu ALL
+./hlint ALL
+
+stack clean
+./ghc-check
+stack clean
+./weeder

@@ -1,0 +1,20 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+REPO_OWNER="$1"
+REPO_NAME="$2"
+COMMIT_SHA="$3"
+
+AUTH_TOKEN=$(auto/app-auth-token | tr -d '\r')
+
+INSTALL_ID=$(curl -H "Authorization: Bearer $AUTH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/repos/$REPO_OWNER/$REPO_NAME/installation" | jq ".id")
+
+INSTALLATION_TOKEN=$(curl -X POST -H "Authorization: Bearer $AUTH_TOKEN" -H "Accept: application/vnd.github+json" "https://api.github.com/app/installations/$INSTALL_ID/access_tokens" | jq -r '.token')
+
+REPOSITORY_ID=$(curl -H "Authorization: token $INSTALLATION_TOKEN" -H "Accept: application/vnd.github+json" -X POST -d "{ \"query\": \"query { repository(owner:\\\"$REPO_OWNER\\\", name: \\\"$REPO_NAME\\\") { id } }\" }" https://api.github.com/graphql | jq -r '.data.repository.id')
+
+CHECK_SUITE_ID=$(curl -H "Authorization: token $INSTALLATION_TOKEN" -H "Accept: application/vnd.github+json" -X POST -d "{ \"query\": \"query { repository(owner:\\\"$REPO_OWNER\\\", name: \\\"$REPO_NAME\\\") { object(oid: \\\"$COMMIT_SHA\\\") { ... on Commit { checkSuites(first: 1, filterBy: { checkName: \\\"Deadpendency Check\\\"} ) { edges { node { id } } } } } } }\" }" https://api.github.com/graphql | jq -r '.data.repository.object.checkSuites.edges[0].node.id')
+
+curl -H "Authorization: token $INSTALLATION_TOKEN" -H "Accept: application/vnd.github+json" -X POST -d "{ \"query\": \"mutation { rerequestCheckSuite(input: {checkSuiteId: \\\"$CHECK_SUITE_ID\\\", repositoryId: \\\"$REPOSITORY_ID\\\" }) { checkSuite { checkRuns(first: 1) { edges { node { id } } } } } }\" }" https://api.github.com/graphql

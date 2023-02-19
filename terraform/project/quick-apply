@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")" || exit
+
+./plan
+
+read -r -p 'Press enter to continue'
+
+./apply-update

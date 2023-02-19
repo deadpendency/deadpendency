@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../../.. || exit
+
+APPLY_TO="${1:-MODIFIED}" auto/latest-environment \
+  stack build dev-deps \
+    --stack-yaml stack-dev-deps.yaml \
+    --dependencies-only \
+    --exec 'auto/bin/hlint-exec'

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+  <title>Create App</title>
+</head>
+<body>
+  <form action="https://github.com/settings/apps/new" method="post">
+    Create a GitHub App Manifest: <input type="text" name="manifest" id="manifest"><br>
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+  input = document.getElementById("manifest")
+  input.value = JSON.stringify(
+    {
+      "name": "Deadpendency",
+      "url": "https://www.deadpendency.com",
+      "hook_attributes": {
+        "url": "https://deadpendency-action-app-rnbiybubyq-uc.a.run.app/hook"
+      },
+      "redirect_url": "https://www.deadpendency.com/installation-complete",
+      "public": false,
+      "default_permissions": {
+        "issues": "read",
+        "checks": "write"
+      },
+      "default_events": [
+        "issues",
+        "issue_comment",
+        "check_suite",
+        "check_run"
+      ]
+    }
+  )
+  </script>
+</body>

@@ -1,0 +1,111 @@
+version: '3'
+
+services:
+  dev:
+    image: haskell:9.0.2-slim-buster@sha256:d5875aa9968abdd163beafb3cf6bdae9386093c73071d5edff4871db3abc7a57
+    working_dir: /work
+    command: ./support/dev/run
+    environment:
+      - SMOKE_TEST
+      - APP_ENV
+      - ORMOLU_MODE
+      - APPLY_TO
+    volumes:
+      - .:/work
+      - stack-25-buster:/root/.stack
+
+  gcloud:
+    build: ./support/gcloud
+    command: bash
+    working_dir: /work/gcloud
+    volumes:
+      - .:/work
+      - /var/run/docker.sock:/var/run/docker.sock # needed for docker in docker, containers are run as siblings this way. Seems semi supported.
+    environment:
+      CLOUDSDK_CORE_PROJECT: dgtw-deadpendency-action-2
+      BUILDKITE:
+      BUILDKITE_COMMIT:
+      APP_NAME:
+      APP_ENV:
+      APP_LIVE:
+      EMIT_METRIC:
+
+  terraform:
+    build: ./support/terraform
+    environment:
+      GOOGLE_REGION: us-central1
+      CLOUDSDK_CORE_PROJECT: dgtw-deadpendency-action-2
+    volumes:
+      - ./terraform:/work
+    entrypoint: /work/bin/entrypoint
+
+  ci:
+    image: haskell:9.0.2-slim-buster@sha256:d5875aa9968abdd163beafb3cf6bdae9386093c73071d5edff4871db3abc7a57
+    working_dir: /work
+    environment:
+      - SMOKE_TEST
+      - APP_ENV
+      - ORMOLU_MODE
+      - APPLY_TO
+    volumes:
+      - .:/work
+      - /mnt/disks/gce-containers-mounts/gce-persistent-disks/mount-ci-agent-stack-cache-27:/root/.stack
+
+  ci-latest:
+    image: haskell:9.2.4-slim-buster@sha256:e0796bd135d6975f149bc9580b489b3748c34246087df9a88d52dfe5c93c0c2a
+    working_dir: /work
+    environment:
+      - SMOKE_TEST
+      - APP_ENV
+      - ORMOLU_MODE
+      - APPLY_TO
+      - STACK_YAML=stack-dev-deps.yaml
+    volumes:
+      - .:/work
+      - /mnt/disks/gce-containers-mounts/gce-persistent-disks/mount-ci-agent-stack-cache-27:/root/.stack
+
+  yamllint:
+    # this updates nightly with no changes, sha pinning is too noisy
+    image: cytopia/yamllint:latest
+    working_dir: /work
+    command: --strict .
+    volumes:
+      - .:/work
+
+  hadolint:
+    image: hadolint/hadolint@sha256:fff226bdf9ebcc08db47fb90ee144dd770120b35c2b1cbbb46e932a650cfe232
+    working_dir: /work
+    volumes:
+      - .:/work
+
+  shellcheck:
+    image: koalaman/shellcheck:stable@sha256:4c4427336d2b4bdb054a1e97396fa2e9ca0c329a1f43f831b99bcaae4ac24fcd
+    working_dir: /work
+    volumes:
+      - .:/work
+
+  dfresh:
+    image: realestate/dfresh@sha256:97145e1e9ba840502dac65e5bd3767e2ed774beb327c5cf3b28164aa03b60a9e
+    working_dir: /work
+    volumes:
+      - .:/work
+
+  app-front:
+    build: ./support/app-front
+    working_dir: /work
+    volumes:
+      - .:/work
+    environment:
+      PORT: 8080
+      APP_LIVE_HOST: https://google.com
+
+  app-auth-token:
+    build: ./support/app-auth-token
+    working_dir: /work
+    volumes:
+      - ./support/app-auth-token:/work
+    command: ruby ./jwt-generate.rb
+
+volumes:
+  stack-25-buster:
+    external: true

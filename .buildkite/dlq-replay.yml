@@ -1,0 +1,9 @@
+steps:
+
+  - label: ':mag_right: Determine Live'
+    command: .buildkite/commands/set-app-live-meta
+
+  - wait
+
+  - label: ':arrow_right_hook: Trigger DLQ Message Replay'
+    command: .buildkite/commands/trigger-dlq-replay

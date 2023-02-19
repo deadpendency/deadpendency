@@ -1,0 +1,7 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+bash "$@"
+
+# gcloud auth activate-service-account leaves the service account as the active one. This sets it back.
+gcloud config set account admin@deadgotowork.com > /dev/null 2>&1

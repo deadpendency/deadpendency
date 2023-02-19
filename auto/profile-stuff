@@ -1,0 +1,16 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+stack bench dependency-fetcher --profile
+
+stack exec -- hp2ps -e8in -c apps/dependency-fetcher/package-load.hp
+
+xdg-open package-load.ps
+
+# stack bench dependency-determiner --profile
+
+# stack exec -- hp2ps -e8in -c apps/dependency-determiner/package-load.hp
+
+# xdg-open package-load.ps

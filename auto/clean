@@ -1,0 +1,10 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+sudo find apps -name "*.cabal" -type f -delete
+sudo find apps -name ".hie" -type d -exec rm -r {} +
+sudo find apps -name ".stack-work" -type d -exec rm -r {} +
+sudo find apps -name "*.hie" -type f -delete
+sudo rm ./apps/temp/*.json || true # errors if no files exist thus the or case

@@ -1,0 +1,12 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+auto/up-docker-volumes
+
+# easy to find ones
+find auto support/*/run gcloud/auto gcloud/bin github-app/auto -type f -exec docker-compose run --rm shellcheck {} +
+
+# terraform scripts
+find terraform/auto/* terraform/app/* terraform/project/* -maxdepth 0 -type f ! -name '*.json' ! -name '*.tf' -exec docker-compose run --rm shellcheck {} +

@@ -1,0 +1,17 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+if [ "$APP_ENV" = "preprod" ] && [ "$APP_LIVE" = "a" ];
+then
+    echo "https://preprod-a-deadpendency-action-script-runner-rnbiybubyq-uc.a.run.app"
+
+elif [ "$APP_ENV" = "prod" ] && [ "$APP_LIVE" = "a" ];
+then
+    echo "https://prod-a-deadpendency-action-script-runner-rnbiybubyq-uc.a.run.app"
+
+elif [ "$APP_ENV" = "prod" ] && [ "$APP_LIVE" = "b" ];
+then
+    echo "https://prod-b-deadpendency-action-script-runner-rnbiybubyq-uc.a.run.app"
+else
+    exit 1
+fi

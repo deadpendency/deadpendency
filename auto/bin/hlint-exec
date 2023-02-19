@@ -1,0 +1,16 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+hlint_run () {
+  echo "Hlint $0"
+
+  hlint --hint=./apps/.hlint.yaml "$0"
+};
+
+export -f hlint_run
+
+if [ "$APPLY_TO" = "MODIFIED" ]; then
+  git ls-files -m --other --exclude-standard apps | grep -E '\.hs' | xargs -n1 bash -c 'hlint_run "$@"'
+else
+  hlint --hint=./apps/.hlint.yaml ./apps
+fi

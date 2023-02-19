@@ -1,0 +1,99 @@
+defaults:
+  local: ../package-defaults.yaml
+
+name: dependency-determiner
+version: 0.1.0.0
+github: "githubuser/dependency-determiner"
+license: OtherLicense
+author: "Author name here"
+maintainer: "example@example.com"
+copyright: "2019 Author name here"
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Web
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description: Please see the README on GitHub at <https://github.com/githubuser/dependency-determiner#readme>
+
+dependencies:
+  - base-noprelude
+  - common
+
+library:
+  source-dirs: src
+  dependencies:
+    - servant
+    - servant-server
+    - fused-effects
+    - fused-effects-random
+    - fused-effects-th
+    - random
+    - wai
+    - warp
+    - gogol
+    - gogol-pubsub
+    - aeson
+    - containers
+    - unordered-containers
+    - vector
+    - nonempty-vector
+    - tomland
+    - megaparsec
+    - text
+    - HsYAML
+    - Cabal
+    - hexml
+    - hexml-lens
+
+executables:
+  dependency-determiner-exe:
+    main: Main.hs
+    source-dirs: app
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - dependency-determiner
+
+tests:
+  dependency-determiner-test:
+    main: Spec.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - dependency-determiner
+      - common-test
+
+      - fused-effects
+      - aeson
+      - vector
+      - nonempty-vector
+      - raw-strings-qq
+
+      - hspec
+      - hspec-hedgehog
+      - hedgehog
+
+benchmarks:
+  package-load:
+    source-dirs: bench
+    main: Main.hs
+    ghc-options:
+      - -rtsopts
+      - -with-rtsopts=-hm
+    dependencies:
+      - dependency-determiner
+      - common
+
+      - deepseq
+      - weigh
+      - streamly
+      - Cabal
+      - req

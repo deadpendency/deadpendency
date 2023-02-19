@@ -1,0 +1,26 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/..
+
+BUILDKITE_COMMIT=$(date +"%Y-%m-%d_%H-%M-%S")
+export BUILDKITE_COMMIT
+
+SKIP_APPLY=${SKIP_APPLY:-false}
+
+auto/clean
+auto/build-to-local
+gcloud/auto/release-app
+
+if [ "$SKIP_APPLY" != "true" ]; then
+  APP_ENV=${APP_ENV:-preprod} APP_LIVE=${APP_LIVE:-a} terraform/app/pipeline/quick-apply || echo "Rerun: APP_ENV=${APP_ENV:-preprod} APP_LIVE=${APP_LIVE:-a} BUILDKITE_COMMIT=$BUILDKITE_COMMIT terraform/app/pipeline/quick-apply"
+fi
+
+# clean again so host building will work fine
+auto/clean
+
+# beep so we know it has finished
+echo -ne '\007'
+echo -ne '\007'
+echo -ne '\007'
+echo "Rerun: APP_ENV=preprod APP_LIVE=${APP_LIVE:-a} BUILDKITE_COMMIT=$BUILDKITE_COMMIT terraform/app/pipeline/quick-apply"

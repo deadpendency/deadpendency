@@ -1,0 +1,13 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+gcloud secrets versions access latest --secret=general-cloud-run-invoker-key-secret > /tmp/general-cr-invoker-account.json
+
+gcloud auth activate-service-account \
+  --key-file /tmp/general-cr-invoker-account.json
+
+SCRIPT_RUNNER_URL=$(gcloud/bin/get-script-runner-live-url)
+
+curl -v -X POST -H "Authorization: Bearer $(gcloud auth print-identity-token)" "$SCRIPT_RUNNER_URL/replay-failed"

@@ -1,0 +1,8 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../../.. || exit
+
+APP_ENV=preprod APP_LIVE=a terraform/app/pipeline/validate
+APP_ENV=preprod APP_LIVE=a terraform/app/common-front/validate
+APP_ENV=na APP_LIVE=a terraform/project/validate

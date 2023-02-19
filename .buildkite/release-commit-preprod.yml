@@ -1,0 +1,64 @@
+steps:
+
+  - block: ":rocket: Smoke In Preprod"
+
+  # big
+  - label: ':haskell: Refresh Stack Cache'
+    command: auto/build-deps
+    concurrency: 1
+    concurrency_group: 'deadpendency-preprod/refresh-stack-cache'
+
+  - wait
+
+  # expensive so we start first
+  - label: ':building_construction: Build Executables'
+    command: auto/build-to-local
+    plugins:
+      - artifacts#v1.7.0:
+          upload: dist/*
+
+  - label: ':docker: Prepare App Base'
+    branches: master
+    command: auto/prepare-to-release
+
+  - wait
+
+  - label: ':docker: Release to registry'
+    command: gcloud/auto/release-app
+    plugins:
+      - artifacts#v1.7.0:
+          download: dist/*
+
+  - wait
+
+  - label: ':terraform: Pipeline Plan Preprod'
+    command: terraform/app/pipeline/plan
+    concurrency: 1
+    concurrency_group: 'deadpendency-preprod/deploy'
+    env:
+      APP_ENV: preprod
+      APP_LIVE: a
+    plugins:
+      - artifacts#v1.7.0:
+          upload: terraform/app/pipeline/preprod-a/artifacts/terraform-plan-output.data
+
+  - wait
+
+  - label: ':terraform: Pipeline Apply Changes Preprod'
+    command: terraform/app/pipeline/apply-update
+    concurrency: 1
+    concurrency_group: 'deadpendency-preprod/deploy'
+    env:
+      APP_ENV: preprod
+      APP_LIVE: a
+    plugins:
+      - artifacts#v1.7.0:
+          download: terraform/app/pipeline/preprod-a/artifacts/terraform-plan-output.data
+
+  - wait
+
+  - label: ':smoking: Smoke Test Preprod'
+    command: .buildkite/commands/smoke-test
+    env:
+      APP_ENV: preprod
+      APP_LIVE: a

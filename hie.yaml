@@ -1,0 +1,104 @@
+cradle:
+  stack:
+    # shared packages
+
+    - path: "apps/common/src"
+      component: "common:lib"
+
+    - path: "apps/common-test/src"
+      component: "common-test:lib"
+    - path: "apps/common-test/test"
+      component: "common-test:test:common-test-test"
+
+    # components
+
+    - path: "apps/front-door/app/Main.hs"
+      component: "front-door:exe:front-door-exe"
+    - path: "apps/front-door/app/Paths_front_door.hs"
+      component: "front-door:exe:front-door-exe"
+    - path: ./apps/front-door/src
+      component: "front-door:lib"
+    - path: ./apps/front-door/test
+      component: "front-door:test:front-door-test"
+
+    - path: "apps/check-run-creator/app/Main.hs"
+      component: "check-run-creator:exe:check-run-creator-exe"
+    - path: "apps/check-run-creator/app/Paths_check_run_creator.hs"
+      component: "check-run-creator:exe:check-run-creator-exe"
+    - path: ./apps/check-run-creator/src
+      component: "check-run-creator:lib"
+    - path: ./apps/check-run-creator/test
+      component: "check-run-creator:test:check-run-creator-test"
+
+    - path: "apps/run-preparer/src"
+      component: "run-preparer:lib"
+    - path: "apps/run-preparer/app/Main.hs"
+      component: "run-preparer:exe:run-preparer-exe"
+    - path: "apps/run-preparer/app/Paths_run_preparer.hs"
+      component: "run-preparer:exe:run-preparer-exe"
+    - path: "apps/run-preparer/test"
+      component: "run-preparer:test:run-preparer-test"
+
+    - path: "apps/dependency-determiner/src"
+      component: "dependency-determiner:lib"
+    - path: "apps/dependency-determiner/app/Main.hs"
+      component: "dependency-determiner:exe:dependency-determiner-exe"
+    - path: "apps/dependency-determiner/app/Paths_dependency_determiner.hs"
+      component: "dependency-determiner:exe:dependency-determiner-exe"
+    - path: "apps/dependency-determiner/test"
+      component: "dependency-determiner:test:dependency-determiner-test"
+    # rarely used
+    # - path: "apps/dependency-determiner/bench/Main.hs"
+    #   component: "dependency-determiner:bench:package-load"
+    # - path: "apps/dependency-determiner/bench/Paths_dependency_determiner.hs"
+    #   component: "dependency-determiner:bench:package-load"
+
+    - path: "apps/dependency-fetcher/src"
+      component: "dependency-fetcher:lib"
+    - path: "apps/dependency-fetcher/app/Main.hs"
+      component: "dependency-fetcher:exe:dependency-fetcher-exe"
+    - path: "apps/dependency-fetcher/app/Paths_dependency_fetcher.hs"
+      component: "dependency-fetcher:exe:dependency-fetcher-exe"
+    - path: "apps/dependency-fetcher/test"
+      component: "dependency-fetcher:test:dependency-fetcher-test"
+    # rarely used
+    # - path: "apps/dependency-fetcher/bench/Main.hs"
+    #   component: "dependency-fetcher:bench:package-load"
+    # - path: "apps/dependency-fetcher/bench/Paths_dependency_fetcher.hs"
+    #   component: "dependency-fetcher:bench:package-load"
+
+    - path: "apps/report-generator/src"
+      component: "report-generator:lib"
+    - path: "apps/report-generator/app/Main.hs"
+      component: "report-generator:exe:report-generator-exe"
+    - path: "apps/report-generator/app/Paths_report_generator.hs"
+      component: "report-generator:exe:report-generator-exe"
+    - path: "apps/report-generator/test"
+      component: "report-generator:test:report-generator-test"
+
+    - path: "apps/run-finalizer/src"
+      component: "run-finalizer:lib"
+    - path: "apps/run-finalizer/app/Main.hs"
+      component: "run-finalizer:exe:run-finalizer-exe"
+    - path: "apps/run-finalizer/app/Paths_run_finalizer.hs"
+      component: "run-finalizer:exe:run-finalizer-exe"
+    - path: "apps/run-finalizer/test"
+      component: "run-finalizer:test:run-finalizer-test"
+
+      # ancillary components
+
+    - path: "apps/script-runner/src"
+      component: "script-runner:lib"
+    - path: "apps/script-runner/app/Main.hs"
+      component: "script-runner:exe:script-runner-exe"
+    - path: "apps/script-runner/app/Paths_script_runner.hs"
+      component: "script-runner:exe:script-runner-exe"
+    - path: "apps/script-runner/test"
+      component: "script-runner:test:script-runner-test"
+
+    - path: "apps/error-processor/src"
+      component: "error-processor:lib"
+    - path: "apps/error-processor/app/Main.hs"
+      component: "error-processor:exe:error-processor-exe"
+    - path: "apps/error-processor/app/Paths_error_processor.hs"
+      component: "error-processor:exe:error-processor-exe"

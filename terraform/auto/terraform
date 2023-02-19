@@ -1,0 +1,59 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+../auto/up-docker-volumes
+
+BUILDKITE=${BUILDKITE-false}
+
+docker-compose build terraform
+
+VERSION=$(<../VERSION)
+
+if [ "$WORK_DIR" = "project" ];
+then
+    ACTIVE_DIR="/work/$WORK_DIR"
+    APP_LIVE="na"
+    APP_LIVE_HOST="na"
+    TF_DEPLOY_KEY="tf-da-admin-key-secret"
+elif [ "$WORK_DIR" = "app" ] && [ "$APP_COMPONENT" = "pipeline" ];
+then
+    ACTIVE_DIR="/work/$WORK_DIR/$APP_COMPONENT/$APP_ENV-$APP_LIVE"
+    APP_LIVE_HOST="na"
+    TF_DEPLOY_KEY="app-deploy-key-secret"
+else
+    ACTIVE_DIR="/work/$WORK_DIR/$APP_COMPONENT/$APP_ENV"
+    APP_LIVE_HOST=${APP_LIVE_HOST:-ignore}
+    TF_DEPLOY_KEY="app-deploy-key-secret"
+fi
+
+if [ "$BUILDKITE" = true ];
+then
+  docker-compose \
+    --file ../docker-compose.yml \
+    run \
+    --rm \
+    -e TERRAFORM_BACKEND="${TERRAFORM_BACKEND:-true}" \
+    -e TF_VAR_APP_VERSION_SHA="${BUILDKITE_COMMIT:-dev}" \
+    -e TF_VAR_APP_VERSION="$VERSION" \
+    -e TF_VAR_APP_LIVE="$APP_LIVE" \
+    -e TF_VAR_APP_LIVE_HOST="$APP_LIVE_HOST" \
+    -e TF_DEPLOY_KEY="$TF_DEPLOY_KEY" \
+    --workdir "$ACTIVE_DIR" \
+    terraform "$@"
+else
+  docker-compose \
+    --file ../docker-compose.yml \
+    run \
+    --rm \
+    -e TERRAFORM_BACKEND="${TERRAFORM_BACKEND:-true}" \
+    -e TF_VAR_APP_VERSION_SHA="${BUILDKITE_COMMIT:-dev}" \
+    -e TF_VAR_APP_VERSION="$VERSION" \
+    -e TF_VAR_APP_LIVE="$APP_LIVE" \
+    -e TF_VAR_APP_LIVE_HOST="$APP_LIVE_HOST" \
+    -e TF_DEPLOY_KEY="$TF_DEPLOY_KEY" \
+    -v ~/.config/gcloud:/root/.config/gcloud \
+    --workdir "$ACTIVE_DIR" \
+    terraform "$@"
+fi

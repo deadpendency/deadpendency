@@ -1,0 +1,11 @@
+#!/bin/bash
+set -Eexo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+if [ -z "$APP_LIVE" ];
+then
+  APP_LIVE=$(buildkite-agent meta-data get "app_live")
+fi
+
+APP_LIVE="$APP_LIVE" auto/smoke-test

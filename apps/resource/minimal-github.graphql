@@ -1,0 +1,822 @@
+type Query {
+  """
+  Lookup a given repository by the owner and repository name.
+  """
+  repository(
+    """
+    The name of the repository
+    """
+    name: String!
+
+    """
+    The login field of a user or organization
+    """
+    owner: String!
+  ): Repository
+}
+
+type Repository implements Node {
+  id: ID!
+  """
+  The name of the repository.
+  """
+  name: String!
+
+  """
+  The Ref associated with the repository's default branch.
+  """
+  defaultBranchRef: Ref
+
+  """
+  Indicates if the repository is unmaintained.
+  """
+  isArchived: Boolean!
+
+  """
+  Identifies if the repository is a fork.
+  """
+  isFork: Boolean!
+
+  """
+  A list containing a breakdown of the language composition of the repository.
+  """
+  languages(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+
+    """
+    Order for connection
+    """
+    orderBy: LanguageOrder
+  ): LanguageConnection
+
+  """
+  A Git object in the repository
+  """
+  object(
+    """
+    A Git revision expression suitable for rev-parse
+    """
+    expression: String
+
+    """
+    The Git object ID
+    """
+    oid: GitObjectID
+  ): GitObject
+
+  """
+  The primary language of the repository's code.
+  """
+  primaryLanguage: Language
+}
+
+"""
+Represents a Git blob.
+"""
+type Blob implements GitObject & Node {
+  id: ID!
+
+  """
+  Indicates whether the contents is truncated
+  """
+  isTruncated: Boolean!
+
+  """
+  UTF8 text data or null if the Blob is binary
+  """
+  text: String
+}
+
+"""
+Represents a Git reference.
+"""
+type Ref implements Node {
+  id: ID!
+
+  """
+  The object the ref points to.
+
+  This should be GitObject, but morpheus breaks when done. This seems to be fine for now as we know it is a commit.
+  """
+  target: GitObject!
+}
+
+"""
+Represents a given language found in repositories.
+"""
+type Language implements Node {
+  id: ID!
+
+  """
+  The name of the current language.
+  """
+  name: String!
+}
+
+"""
+A list of languages associated with the parent.
+"""
+type LanguageConnection {
+
+  """
+  A list of nodes.
+  """
+  nodes: [Language]
+}
+
+"""
+Ordering options for language connections.
+"""
+input LanguageOrder {
+  """
+  The ordering direction.
+  """
+  direction: OrderDirection!
+
+  """
+  The field to order languages by.
+  """
+  field: LanguageOrderField!
+}
+
+"""
+Properties by which language connections can be ordered.
+"""
+enum LanguageOrderField {
+  """
+  Order languages by the size of all files containing the language
+  """
+  SIZE
+}
+
+"""
+Possible directions in which to order a list of items when provided an `orderBy` argument.
+"""
+enum OrderDirection {
+  """
+  Specifies an ascending order for a given `orderBy` argument.
+  """
+  ASC
+
+  """
+  Specifies a descending order for a given `orderBy` argument.
+  """
+  DESC
+}
+
+"""
+Represents a Git object.
+"""
+interface GitObject {
+  id: ID!
+}
+
+"""
+An object with an ID.
+"""
+interface Node {
+  """
+  ID of the object.
+  """
+  id: ID!
+}
+
+"""
+A check run.
+"""
+type CheckRun implements Node {
+  """
+  The check suite that this run is a part of.
+  """
+  checkSuite: CheckSuite!
+
+  """
+  A reference for the check run on the integrator's system.
+  """
+  # externalId: String
+  id: ID!
+
+  """
+  The name of the check for this check run.
+  """
+  name: String!
+
+  """
+  The current status of the check run.
+  """
+  status: CheckStatusState!
+
+  """
+  The conclusion of the check run.
+  """
+  conclusion: CheckConclusionState
+
+  """
+  The repository associated with this check run.
+  """
+  repository: Repository!
+
+  """
+  A string representing the check run's summary
+  """
+  summary: String
+
+  """
+  A string representing the check run's text
+  """
+  text: String
+
+  """
+  A string representing the check run
+  """
+  title: String
+}
+
+type CheckSuite implements Node {
+  """
+  The check runs associated with a check suite.
+  """
+  checkRuns(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): CheckRunConnection
+
+  """
+  The commit for this check suite
+  """
+  commit: Commit!
+
+  """
+  Identifies the primary key from the database.
+  """
+  databaseId: Int
+  id: ID!
+
+  """
+  The repository associated with this check suite.
+  """
+  repository: Repository!
+}
+
+"""
+The connection type for CheckRun.
+"""
+type CheckRunConnection {
+  """
+  A list of edges.
+  """
+  edges: [CheckRunEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [CheckRun]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+
+"""
+An edge in a connection.
+"""
+type CheckRunEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: CheckRun
+}
+
+"""
+Represents a Git commit.
+"""
+type Commit implements GitObject & Node {
+
+  id: ID!
+
+  """
+  Authorship details of the commit.
+  """
+  author: GitActor
+
+  """
+  The Git object ID
+  """
+  oid: GitObjectID!
+
+  """
+  The datetime when this commit was committed.
+  """
+  committedDate: DateTime!
+
+  """
+  The check suites associated with a commit.
+  """
+  checkSuites(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the elements in the list that come before the specified cursor.
+    """
+    before: String
+
+    """
+    Filters the check suites by this type.
+    """
+    filterBy: CheckSuiteFilter
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Returns the last _n_ elements from the list.
+    """
+    last: Int
+  ): CheckSuiteConnection
+
+  """
+  The datetime when this commit was pushed.
+  """
+  pushedDate: DateTime
+
+  """
+  The linear commit history starting from (and including) this commit, in the same order as `git log`.
+  """
+  history(
+    """
+    Returns the elements in the list that come after the specified cursor.
+    """
+    after: String
+
+    """
+    Returns the first _n_ elements from the list.
+    """
+    first: Int
+
+    """
+    Allows specifying a beginning time or date for fetching commits.
+    """
+    since: GitTimestamp
+  ): CommitHistoryConnection!
+
+  """
+  Commit's root Tree
+  """
+  tree: Tree!
+
+}
+
+"""
+The filters that are available when fetching check suites.
+"""
+input CheckSuiteFilter {
+  """
+  Filters the check suites created by this application ID.
+  """
+  appId: Int
+
+  """
+  Filters the check suites by this name.
+  """
+  checkName: String
+}
+
+"""
+Represents an actor in a Git commit (ie. an author or committer).
+"""
+type GitActor {
+  """
+  The email in the Git commit.
+  """
+  email: String
+}
+
+type Tree implements GitObject & Node {
+  """
+  A list of tree entries.
+  """
+  entries: [TreeEntry!]
+
+  id: ID!
+
+  """
+  The Git object ID
+  """
+  oid: GitObjectID!
+}
+
+"""
+Represents a Git tree entry.
+"""
+type TreeEntry {
+  """
+  Entry file name.
+  """
+  name: String!
+
+  """
+  Entry file object.
+  """
+  object: Tree
+  # GitObject
+
+  """
+  Entry file type.
+  """
+  type: String!
+}
+
+"""
+The connection type for Commit.
+"""
+type CommitHistoryConnection {
+  """
+  A list of edges.
+  """
+  edges: [CommitEdge]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+}
+
+"""
+Information about pagination in a connection.
+"""
+type PageInfo {
+  """
+  When paginating forwards, the cursor to continue.
+  """
+  endCursor: String
+
+  """
+  When paginating forwards, are there more items?
+  """
+  hasNextPage: Boolean!
+
+  """
+  When paginating backwards, are there more items?
+  """
+  hasPreviousPage: Boolean!
+
+  """
+  When paginating backwards, the cursor to continue.
+  """
+  startCursor: String
+}
+
+"""
+An edge in a connection.
+"""
+type CommitEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: Commit
+}
+
+"""
+The connection type for CheckSuite.
+"""
+type CheckSuiteConnection {
+  """
+  A list of edges.
+  """
+  edges: [CheckSuiteEdge]
+
+  """
+  A list of nodes.
+  """
+  nodes: [CheckSuite]
+
+  """
+  Information to aid in pagination.
+  """
+  pageInfo: PageInfo!
+
+  """
+  Identifies the total count of items in the connection.
+  """
+  totalCount: Int!
+}
+
+"""
+An edge in a connection.
+"""
+type CheckSuiteEdge {
+  """
+  A cursor for use in pagination.
+  """
+  cursor: String!
+
+  """
+  The item at the end of the edge.
+  """
+  node: CheckSuite
+}
+
+"""
+Autogenerated input type of CreateCheckRun
+"""
+
+# @preview(toggledBy: "antiope-preview")
+
+input CreateCheckRunInput {
+  """
+  The SHA of the head commit.
+  """
+  headSha: GitObjectID!
+
+  """
+  The name of the check.
+  """
+  name: String!
+
+  """
+  The node ID of the repository.
+  """
+  repositoryId: ID!
+
+  """
+  The current status.
+  """
+  status: RequestableCheckStatusState!
+}
+
+input UpdateCheckRunInput {
+  """
+  The node ID of the repository.
+  """
+  repositoryId: ID!
+
+  """
+  The check run id.
+  """
+  checkRunId: ID!
+
+  """
+  The final conclusion of the check.
+  """
+  conclusion: CheckConclusionState
+
+  """
+  Descriptive details about the run.
+  """
+  output: CheckRunOutput
+
+  """
+  The current status.
+  """
+  status: RequestableCheckStatusState
+}
+
+"""
+Descriptive details about the check run.
+"""
+input CheckRunOutput {
+  """
+  The summary of the check run (supports Commonmark).
+  """
+  summary: String!
+
+  """
+  The details of the check run (supports Commonmark).
+  """
+  text: String
+
+  """
+  A title to provide for this check run.
+  """
+  title: String!
+}
+
+"""
+Autogenerated return type of CreateCheckRun
+"""
+type CreateCheckRunPayload {
+  """
+  The newly created check run.
+  """
+  checkRun: CheckRun
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+}
+
+"""
+Autogenerated return type of UpdateCheckRun
+"""
+type UpdateCheckRunPayload {
+  """
+  The updated check run.
+  """
+  checkRun: CheckRun
+
+  """
+  A unique identifier for the client performing the mutation.
+  """
+  clientMutationId: String
+}
+
+"""
+Autogenerated input type of RerequestCheckSuite
+"""
+input RerequestCheckSuiteInput {
+  """
+  The Node ID of the check suite.
+  """
+  checkSuiteId: ID!
+
+  """
+  The Node ID of the repository.
+  """
+  repositoryId: ID!
+}
+
+type RerequestCheckSuitePayload {
+  """
+  The requested check suite.
+  """
+  checkSuite: CheckSuite
+}
+
+type Mutation {
+  """
+  Create a check run.
+  """
+  createCheckRun(input: CreateCheckRunInput!): CreateCheckRunPayload
+
+  """
+  Update a check run.
+  """
+  updateCheckRun(input: UpdateCheckRunInput!): UpdateCheckRunPayload
+
+  """
+  Rerequests an existing check suite.
+  """
+  rerequestCheckSuite(input: RerequestCheckSuiteInput!): RerequestCheckSuitePayload
+}
+
+"""
+The possible states that can be requested when creating a check run.
+"""
+enum RequestableCheckStatusState {
+  """
+  The check suite or run has been completed.
+  """
+  COMPLETED
+
+  """
+  The check suite or run is in progress.
+  """
+  IN_PROGRESS
+
+  """
+  The check suite or run has been queued.
+  """
+  QUEUED
+}
+
+"""
+The possible states for a check suite or run status.
+"""
+enum CheckStatusState {
+  """
+  The check suite or run has been completed.
+  """
+  COMPLETED
+
+  """
+  The check suite or run is in progress.
+  """
+  IN_PROGRESS
+
+  """
+  The check suite or run has been queued.
+  """
+  QUEUED
+
+  """
+  The check suite or run has been requested.
+  """
+  REQUESTED
+}
+
+"""
+The possible states for a check suite or run conclusion.
+"""
+enum CheckConclusionState {
+  """
+  The check suite or run requires action.
+  """
+  ACTION_REQUIRED
+
+  """
+  The check suite or run has been cancelled.
+  """
+  CANCELLED
+
+  """
+  The check suite or run has failed.
+  """
+  FAILURE
+
+  """
+  The check suite or run was neutral.
+  """
+  NEUTRAL
+
+  """
+  The check suite or run was skipped by GitHub. Only GitHub can use this conclusion.
+  """
+  SKIPPED
+
+  """
+  The check suite or run was marked stale by GitHub. Only GitHub can use this conclusion.
+  """
+  STALE
+
+  """
+  The check suite or run has succeeded.
+  """
+  SUCCESS
+
+  """
+  The check suite or run has timed out.
+  """
+  TIMED_OUT
+}
+
+"""
+A Git object ID.
+"""
+scalar GitObjectID
+
+"""
+An ISO-8601 encoded UTC date string.
+"""
+scalar DateTime
+
+"""
+An ISO-8601 encoded date string. Unlike the DateTime type, GitTimestamp is not converted in UTC.
+"""
+scalar GitTimestamp

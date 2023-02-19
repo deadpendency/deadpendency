@@ -1,0 +1,12 @@
+#!/bin/bash
+set -euxo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+auto/up-docker-volumes
+
+auto/docker-image-update
+
+# stack config set resolver lts just overrides the stack file :/
+
+# apparently no good way to either check terraform deps are up to date, or update them in the source files

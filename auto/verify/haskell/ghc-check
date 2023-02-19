@@ -1,0 +1,9 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../../.. || exit
+
+auto/dev-environment \
+  stack test \
+    --no-run-tests \
+    --pedantic

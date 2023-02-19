@@ -1,0 +1,4 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+stack run --allow-different-user

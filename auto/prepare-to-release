@@ -1,0 +1,9 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+docker build . \
+  -f support/app/Dockerfile-base
+
+docker-compose build gcloud

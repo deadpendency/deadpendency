@@ -1,0 +1,14 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+VERSION="v$(<./VERSION)"
+
+git tag "$VERSION"
+
+git checkout release-prod
+
+git reset --hard "$BUILDKITE_COMMIT"
+
+git push origin release-prod --tags

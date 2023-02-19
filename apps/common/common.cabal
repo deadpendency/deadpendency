@@ -1,0 +1,361 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           common
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/common#readme>
+homepage:       https://github.com/githubuser/common#readme
+bug-reports:    https://github.com/githubuser/common/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2019 Author name here
+license:        OtherLicense
+build-type:     Simple
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/common
+
+library
+  exposed-modules:
+      Common.Aeson.Aeson
+      Common.Effect.AppEventEmit.AppEventEmit
+      Common.Effect.AppEventEmit.Carrier.AppEventEmitGoogleLoggingC
+      Common.Effect.AppEventEmit.Carrier.AppEventEmitRetC
+      Common.Effect.AppEventEmit.Carrier.AppEventEmitStdoutC
+      Common.Effect.AppEventEmit.Model.AppEvent
+      Common.Effect.AppEventEmit.Model.AppEventAdditional
+      Common.Effect.AppEventEmit.Model.AppEventLevel
+      Common.Effect.AppEventEmit.Model.AppEventMessage
+      Common.Effect.AppEventEmit.Model.AppEventPayload
+      Common.Effect.CacheExternal.CacheExternal
+      Common.Effect.CacheExternal.Carrier.CacheExternalRedisC
+      Common.Effect.CacheExternal.Carrier.CacheExternalRetC
+      Common.Effect.EmitErrors.Carrier.EmitErrorsC
+      Common.Effect.GitHub.AppSharedAuth.AppSharedAuth
+      Common.Effect.GitHub.AppSharedAuth.Carrier.AppSharedAuthGenerateC
+      Common.Effect.GitHub.CountPrivateInstalls.Backend.CountPrivateInstallsBackend
+      Common.Effect.GitHub.CountPrivateInstalls.Carrier.CountPrivateInstallsGitHubC
+      Common.Effect.GitHub.CountPrivateInstalls.Carrier.CountPrivateInstallsRetC
+      Common.Effect.GitHub.CountPrivateInstalls.CountPrivateInstalls
+      Common.Effect.GitHub.CountPrivateInstalls.Model.CountPrivateInstallsRequest
+      Common.Effect.GitHub.CountPrivateInstalls.Model.CountPrivateInstallsResult
+      Common.Effect.GitHub.DetermineAccountPlan.Backend.DetermineAccountPlanBackend
+      Common.Effect.GitHub.DetermineAccountPlan.Carrier.DetermineAccountPlanGitHubC
+      Common.Effect.GitHub.DetermineAccountPlan.Carrier.DetermineAccountPlanRetC
+      Common.Effect.GitHub.DetermineAccountPlan.DetermineAccountPlan
+      Common.Effect.GitHub.DetermineAccountPlan.Model.DetermineAccountPlanResult
+      Common.Effect.GitHub.FetchRepoFiles.Backend.FetchRepoFilesBackend
+      Common.Effect.GitHub.FetchRepoFiles.Backend.Model.InternalRepoFileRequest
+      Common.Effect.GitHub.FetchRepoFiles.Carrier.FetchRepoFilesGitHubC
+      Common.Effect.GitHub.FetchRepoFiles.FetchRepoFiles
+      Common.Effect.GitHub.FetchRepoFiles.Model.RepoFilesRequest
+      Common.Effect.GitHub.FetchRepoFiles.Model.RepoFilesResult
+      Common.Effect.GitHub.InstallationAuth.Carrier.InstallationAuthGitHubC
+      Common.Effect.GitHub.InstallationAuth.InstallationAuth
+      Common.Effect.GitHub.SearchRepoDirectoryFiles.Backend.Model.GetDirectoryRepoFile
+      Common.Effect.GitHub.SearchRepoDirectoryFiles.Backend.SearchRepoDirectoryFilesBackend
+      Common.Effect.GitHub.SearchRepoDirectoryFiles.Carrier.SearchRepoDirectoryFilesGitHubC
+      Common.Effect.GitHub.SearchRepoDirectoryFiles.Model.SearchRepoDirectoryFilesRequest
+      Common.Effect.GitHub.SearchRepoDirectoryFiles.Model.SearchRepoDirectoryFilesResult
+      Common.Effect.GitHub.SearchRepoDirectoryFiles.SearchRepoDirectoryFiles
+      Common.Effect.GitHub.SearchRepoFiles.Backend.Model.GetAllRepoFile
+      Common.Effect.GitHub.SearchRepoFiles.Backend.SearchRepoFilesBackend
+      Common.Effect.GitHub.SearchRepoFiles.Carrier.SearchRepoFilesGitHubC
+      Common.Effect.GitHub.SearchRepoFiles.Model.SearchRepoFilesRequest
+      Common.Effect.GitHub.SearchRepoFiles.Model.SearchRepoFilesResult
+      Common.Effect.GitHub.SearchRepoFiles.SearchRepoFiles
+      Common.Effect.GitHub.WriteChecks.Backend.CreateCheckRunBackend
+      Common.Effect.GitHub.WriteChecks.Backend.UpdateCheckRunBackend
+      Common.Effect.GitHub.WriteChecks.Carrier.WriteChecksGitHubC
+      Common.Effect.GitHub.WriteChecks.Carrier.WriteChecksRetC
+      Common.Effect.GitHub.WriteChecks.Model.CheckRunCreateRequest
+      Common.Effect.GitHub.WriteChecks.Model.CheckRunCreateResult
+      Common.Effect.GitHub.WriteChecks.Model.CheckRunUpdateRequest
+      Common.Effect.GitHub.WriteChecks.Model.CheckRunUpdateRequestStatus
+      Common.Effect.GitHub.WriteChecks.Model.CheckRunUpdateResult
+      Common.Effect.GitHub.WriteChecks.WriteChecks
+      Common.Effect.InterchangeEventDecode.Carrier.InterchangeEventDecodeC
+      Common.Effect.InterchangeEventDecode.Carrier.InterchangeEventDecodeMockC
+      Common.Effect.InterchangeEventDecode.InterchangeEventDecode
+      Common.Effect.InterchangeEventLoad.Carrier.InterchangeEventLoadC
+      Common.Effect.InterchangeEventLoad.Carrier.InterchangeEventLoadMockC
+      Common.Effect.InterchangeEventLoad.InterchangeEventLoad
+      Common.Effect.MetricEmit.Carrier.MetricEmitGoogleC
+      Common.Effect.MetricEmit.MetricEmit
+      Common.Effect.MetricEmit.Model.MetricEvent
+      Common.Effect.PublishComponentResult.Carrier.PublishComponentResultC
+      Common.Effect.PublishComponentResult.Carrier.PublishComponentResultRetC
+      Common.Effect.PublishComponentResult.Model.ComponentResult
+      Common.Effect.PublishComponentResult.PublishComponentResult
+      Common.Effect.PublishFailedMessage.Carrier.PublishFailedMessageC
+      Common.Effect.PublishFailedMessage.Carrier.PublishFailedMessageRetC
+      Common.Effect.PublishFailedMessage.Model.FailedInterchangeEvent
+      Common.Effect.PublishFailedMessage.PublishFailedMessage
+      Common.Effect.PublishSimpleResult.Carrier.PublishSimpleResultC
+      Common.Effect.PublishSimpleResult.Carrier.PublishSimpleResultRetC
+      Common.Effect.PublishSimpleResult.Model.SimpleResult
+      Common.Effect.PublishSimpleResult.PublishSimpleResult
+      Common.Effect.QueueEventPublish.Carrier.QueueEventPublishGooglePubSubC
+      Common.Effect.QueueEventPublish.Model.QueueEventPublishRequest
+      Common.Effect.QueueEventPublish.Model.QueuePayload
+      Common.Effect.QueueEventPublish.Model.QueueTopicId
+      Common.Effect.QueueEventPublish.QueueEventPublish
+      Common.Effect.Trace.Carrier.TraceEmitGoogleC
+      Common.Effect.Trace.Carrier.TraceEmitRetC
+      Common.Effect.Trace.Model.ConcludeSpanRequest
+      Common.Effect.Trace.Model.Span
+      Common.Effect.Trace.Model.StartSpanRequest
+      Common.Effect.Trace.Model.StartSpanResult
+      Common.Effect.Trace.TraceEmit
+      Common.Effect.TranslateError.Carrier.TranslateCatchC
+      Common.Effect.TranslateError.Carrier.TranslateThrowC
+      Common.Effect.Util
+      Common.GitHub.Auth
+      Common.GitHub.GetCheckRunOutput.GetCheckRunOutput
+      Common.GitHub.GetCheckRunOutput.Model.GetCheckRunOutputRequest
+      Common.GitHub.GetCheckRunOutput.Model.GetCheckRunOutputResult
+      Common.GitHub.GraphQLCommon
+      Common.GitHub.Internal.InstallationAuthResponse
+      Common.GitHub.Model.GitHubError
+      Common.GitHub.RepoStats.FetchRepoStats
+      Common.GitHub.RepoStats.Model.RepoStatsRequest
+      Common.GitHub.RepoStats.Model.RepoStatsResult
+      Common.GitHub.TriggerCheckSuite.TriggerCheckSuite
+      Common.Handler
+      Common.HtmlReport.HtmlReport
+      Common.HtmlReport.HtmlReportDecodeError
+      Common.HtmlReport.HtmlReportTextual
+      Common.HtmlReport.Instances.AppVersion
+      Common.HtmlReport.Instances.Assessment.DependencyAssessmentFailure
+      Common.HtmlReport.Instances.Assessment.DependencyAssessmentViolation
+      Common.HtmlReport.Instances.Assessment.DependencyAssessmentWarning
+      Common.HtmlReport.Instances.DependenciesFileType
+      Common.HtmlReport.Instances.DependencyFailureReport
+      Common.HtmlReport.Instances.DependencyIgnoreReport
+      Common.HtmlReport.Instances.DependencyLanguageReport
+      Common.HtmlReport.Instances.DependencyPassReport
+      Common.HtmlReport.Instances.DependencyReportIdentifier
+      Common.HtmlReport.Instances.DependencyReports
+      Common.HtmlReport.Instances.DependencyWarningReport
+      Common.HtmlReport.Instances.Error.DependencyErrorReason
+      Common.HtmlReport.Instances.Error.DependencyErrorReport
+      Common.HtmlReport.Instances.Error.DependencyErrorReports
+      Common.HtmlReport.Instances.Error.ProcessingError
+      Common.HtmlReport.Instances.Error.UserError
+      Common.HtmlReport.Instances.GitPath
+      Common.HtmlReport.Instances.Internal
+      Common.HtmlReport.Instances.OverallReport
+      Common.HtmlReport.Instances.PackageLink
+      Common.HtmlReport.Instances.QualifiedRepo
+      Common.HtmlReport.Instances.Repo
+      Common.HtmlReport.Instances.Vector
+      Common.Lens.NonEmptyVector
+      Common.List
+      Common.Loader.CommonConfigLoader
+      Common.Loader.GHAppAuthLoader
+      Common.Loader.GoogleEnvLoader
+      Common.Loader.HttpManagerLoader
+      Common.Loader.InstanceConfigLoader
+      Common.Loader.RedisConnectionLoader
+      Common.Loader.SecretLoader
+      Common.Model.Assessment.DependencyAssessment
+      Common.Model.Assessment.DependencyAssessmentFailure
+      Common.Model.Assessment.DependencyAssessmentResult
+      Common.Model.Assessment.DependencyAssessmentViolation
+      Common.Model.Assessment.DependencyAssessmentWarning
+      Common.Model.Cache.CacheConfigGlobal
+      Common.Model.Config.AppEnv
+      Common.Model.Config.AppVersion
+      Common.Model.Config.CommonConfig
+      Common.Model.Config.InstanceConfig
+      Common.Model.Dependency.Basic.BasicDependency
+      Common.Model.Dependency.Basic.BasicRepoDependencies
+      Common.Model.Dependency.DependencyIdentifier
+      Common.Model.Dependency.DependencyName
+      Common.Model.Dependency.DependencyType
+      Common.Model.Dependency.Enriched.EnrichedDependency
+      Common.Model.Dependency.Enriched.EnrichedRepoDependencies
+      Common.Model.Dependency.Errored.ErroredDependency
+      Common.Model.Dependency.Errored.ErroredReason
+      Common.Model.Dependency.Errored.ErroredRepoDependencies
+      Common.Model.Dependency.File.DependenciesFileLoad
+      Common.Model.Dependency.File.DependenciesFileLoadDetails
+      Common.Model.Dependency.File.DependenciesFileType
+      Common.Model.Dependency.Ignored.IgnoredDependency
+      Common.Model.Dependency.Ignored.IgnoredRepoDependencies
+      Common.Model.Dependency.Registry.DependencyRegistryInfo
+      Common.Model.Dependency.Registry.RegistryAlivenessStatus
+      Common.Model.Dependency.Repo.DependencyRepoCommit
+      Common.Model.Dependency.Repo.DependencyRepoStats
+      Common.Model.Details.Component
+      Common.Model.Details.ComponentDetails
+      Common.Model.Details.ComponentRevision
+      Common.Model.Details.ComponentTrace
+      Common.Model.Details.Run
+      Common.Model.Details.RunTrace
+      Common.Model.Ecosystem.ProgrammingLanguage
+      Common.Model.Ecosystem.Registry
+      Common.Model.Error.CommonError
+      Common.Model.Error.ConsideredAppFailure
+      Common.Model.Error.FromAppError
+      Common.Model.Error.ProcessingError
+      Common.Model.Error.ToAppError
+      Common.Model.Error.ToProcessingError
+      Common.Model.Error.UserError
+      Common.Model.Error.WriteChecksError
+      Common.Model.Git.GitFileMatch
+      Common.Model.Git.GitPath
+      Common.Model.Git.GitRef
+      Common.Model.Git.GitSha
+      Common.Model.Git.QualifiedRepo
+      Common.Model.Git.Repo
+      Common.Model.Git.RepoHost
+      Common.Model.Git.RepoName
+      Common.Model.Git.RepoOwner
+      Common.Model.GitHub.Auth.GHAppAuthGlobal
+      Common.Model.GitHub.Auth.GHAppAuthPrereqs
+      Common.Model.GitHub.Auth.GHInstallationAuth
+      Common.Model.GitHub.Auth.GHSharedAppAuth
+      Common.Model.GitHub.Checks.CheckRun
+      Common.Model.GitHub.Checks.CheckRunConclusion
+      Common.Model.GitHub.Checks.CheckRunStatus
+      Common.Model.GitHub.Checks.Output.CheckRunOutput
+      Common.Model.GitHub.Checks.Output.CheckRunOutputBody
+      Common.Model.GitHub.Checks.Output.CheckRunOutputSummary
+      Common.Model.GitHub.Checks.Output.CheckRunOutputTitle
+      Common.Model.GitHub.GHAppId
+      Common.Model.GitHub.GHAppInstallationId
+      Common.Model.GitHub.GHAppRawPrivateKey
+      Common.Model.GitHub.GHNodeId
+      Common.Model.GitHub.GHRepoFile
+      Common.Model.GitHub.GHRepoFullName
+      Common.Model.GitHub.GHRepoOwnerType
+      Common.Model.GitHub.GHUserName
+      Common.Model.InterchangeEvent.CheckRunCreated
+      Common.Model.InterchangeEvent.DependenciesDetermined
+      Common.Model.InterchangeEvent.DependenciesFetched
+      Common.Model.InterchangeEvent.InterchangeEvent
+      Common.Model.InterchangeEvent.RunCreated
+      Common.Model.InterchangeEvent.RunPrepared
+      Common.Model.InterchangeEvent.RunResult
+      Common.Model.Plan.Plan
+      Common.Model.Plan.PlanError
+      Common.Model.RepoConfig.FileLoadPlan
+      Common.Model.RepoConfig.IgnoreDependenciesConfig
+      Common.Model.RepoConfig.RepoConfig
+      Common.Model.RepoConfig.Rules.FewYearlyCommitsConfig
+      Common.Model.RepoConfig.Rules.NoRecentCommitConfig
+      Common.Model.RepoConfig.Rules.NoRecentPackageConfig
+      Common.Model.RepoConfig.Rules.RulesConfig
+      Common.Model.RepoConfig.Rules.RuleStatus
+      Common.Model.Report.DependencyErrorReason
+      Common.Model.Report.DependencyErrorReport
+      Common.Model.Report.DependencyErrorReports
+      Common.Model.Report.DependencyFailureReport
+      Common.Model.Report.DependencyIgnoreReport
+      Common.Model.Report.DependencyLanguageReport
+      Common.Model.Report.DependencyPassReport
+      Common.Model.Report.DependencyReports
+      Common.Model.Report.DependencyWarningReport
+      Common.Model.Report.OverallReport
+      Common.Model.Report.PackageLink
+      Common.Model.Report.ReportResult
+      Common.Parsing.HsYAML
+      Common.Parsing.Megaparsec
+      Common.Parsing.NameParsing
+      Common.Parsing.RepoParsing
+      Common.Parsing.Xml
+      Common.Report.FailureConversion
+      Common.Text
+      Common.These
+      Common.Util
+      Common.Vector.NonEmptyVector
+      Common.Vector.Vector
+      Prelude
+  other-modules:
+      Paths_common
+  hs-source-dirs:
+      src
+  default-extensions:
+      ApplicativeDo
+      BlockArguments
+      DeriveFunctor
+      DeriveGeneric
+      DerivingStrategies
+      DuplicateRecordFields
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      GeneralizedNewtypeDeriving
+      ImportQualifiedPost
+      KindSignatures
+      LambdaCase
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      OverloadedLabels
+      OverloadedStrings
+      QuasiQuotes
+      RankNTypes
+      ScopedTypeVariables
+      StandaloneDeriving
+      StrictData
+      TupleSections
+      TypeApplications
+      TypeOperators
+      UndecidableInstances
+  ghc-options: -O0 -fhide-source-paths -freverse-errors -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wpartial-fields -Wredundant-constraints -Wmissing-deriving-strategies -fwarn-tabs -Wunused-packages -Winvalid-haddock -Wunicode-bidirectional-format-characters -Werror=unicode-bidirectional-format-characters -Wnoncanonical-monad-instances -Wnoncanonical-monoid-instances
+  build-depends:
+      Glob
+    , HsYAML
+    , aeson
+    , base-noprelude
+    , base64
+    , containers
+    , cryptonite
+    , fused-effects
+    , fused-effects-random
+    , fused-effects-th
+    , generic-lens
+    , github-rest
+    , gogol
+    , gogol-cloudtrace
+    , gogol-logging
+    , gogol-monitoring
+    , gogol-pubsub
+    , gogol-secretmanager
+    , hedis
+    , html-entities
+    , http-client
+    , http-client-tls
+    , http-types
+    , jwt
+    , lens
+    , lucid2
+    , megaparsec
+    , modern-uri
+    , morpheus-graphql-client
+    , morpheus-graphql-core
+    , nonempty-vector
+    , pretty-simple
+    , relude
+    , req
+    , safe-exceptions
+    , streamly
+    , stringsearch
+    , tagsoup
+    , text
+    , these
+    , these-lens
+    , time
+    , unordered-containers
+    , vector
+    , vector-algorithms
+    , wide-word
+    , x509
+    , x509-store
+  default-language: Haskell2010

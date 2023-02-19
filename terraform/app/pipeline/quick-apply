@@ -1,0 +1,7 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")" || exit
+
+./plan
+./apply-update

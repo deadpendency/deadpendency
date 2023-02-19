@@ -1,0 +1,35 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+auto/up-docker-volumes
+
+function check_file() {
+  local DOCKER_FILE=$1
+
+  if [ ! -f "$DOCKER_FILE" ]; then
+    echo "No such file $DOCKER_FILE"
+    exit 1
+  fi
+
+  echo "Checking Docker image freshness on file $DOCKER_FILE"
+  local VERSION_CHECK
+  VERSION_CHECK=$(docker-compose run --rm dfresh check "$DOCKER_FILE" | tail -n1)
+  if [ "${VERSION_CHECK}" != "" ]; then
+    echo "Please upgrade $DOCKER_FILE to latest docker image with $VERSION_CHECK"
+    exit 1
+  fi
+}
+
+# we must pull first to avoid any output from pulling when running the check
+docker-compose pull dfresh
+
+check_file docker-compose.yml
+check_file support/app/Dockerfile
+check_file support/app/Dockerfile-base
+check_file support/app-front/Dockerfile
+check_file support/gcloud/Dockerfile
+check_file support/terraform/Dockerfile
+
+echo "All Docker files are fresh"

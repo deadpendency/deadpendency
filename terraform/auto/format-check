@@ -1,0 +1,11 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+echo 'The following files need to be formatted:'
+
+TERRAFORM_BACKEND="false" auto/terraform fmt -check -recursive
+
+# only reached if the exit code is 0 of the script
+echo 'All files formated correctly.'

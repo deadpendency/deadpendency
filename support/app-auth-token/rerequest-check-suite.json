@@ -1,0 +1,1 @@
+{  "query": "mutation { rerequestCheckSuite(input: {checkSuiteId: \"MDEwOkNoZWNrU3VpdGU2NzM0NTI5OTg=\", repositoryId: \"MDEwOlJlcG9zaXRvcnkyNjMyMDU0OTc=\" }) { checkSuite { checkRuns(first: 10) { edges { node { id } } } } } }"}

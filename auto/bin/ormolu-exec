@@ -1,0 +1,26 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+ormolu_run () {
+  echo "Ormolu $0"
+
+  ormolu \
+    --mode "$ORMOLU_MODE" \
+    "$0"
+
+  RESULT=$?
+  if [ $RESULT -eq 0 ]; then
+    echo "Success"
+  else
+    echo "Failure"
+    exit 1;
+  fi
+};
+
+export -f ormolu_run
+
+if [ "$APPLY_TO" = "MODIFIED" ]; then
+  git ls-files -m --other --exclude-standard | grep -E '\.hs' | xargs -n1 bash -c 'ormolu_run "$@"'
+else
+  find apps/**/src/* apps/**/test/* apps/**/app/* -type f -name '*.hs' -print0 | xargs -0 -n1 bash -c 'ormolu_run "$@"'
+fi

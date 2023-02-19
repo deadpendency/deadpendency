@@ -1,0 +1,1 @@
+{  "query": "query {    repository(owner:\"deadpendency\", name: \"deadpendency-test-repo\") {      dependencyGraphManifests(first:2) {    edges { node { blobPath filename dependencies(first: 2) { nodes { packageName packageManager repository { nameWithOwner } } } } }  }  } }"}

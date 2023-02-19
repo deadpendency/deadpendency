@@ -1,0 +1,4 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+sleep 5s

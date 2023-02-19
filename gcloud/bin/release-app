@@ -1,0 +1,21 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+VERSION=${BUILDKITE_COMMIT:-dev}
+IMAGE="gcr.io/dgtw-deadpendency-action-2/deadpendency-action-$APP_NAME:$VERSION"
+
+docker build . \
+  -f support/app/Dockerfile \
+  --build-arg APP_EXE_ARG="$APP_NAME-exe" \
+  --tag "$IMAGE"
+
+gcloud secrets versions access latest --secret=app-pusher-key-secret > /tmp/deadpendency-app-pusher.json
+
+gcloud auth activate-service-account \
+  --key-file /tmp/deadpendency-app-pusher.json
+
+gcloud auth configure-docker --quiet
+
+docker push "$IMAGE"

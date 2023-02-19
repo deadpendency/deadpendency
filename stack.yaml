@@ -1,0 +1,27 @@
+resolver: apps/custom-snapshot.yaml
+
+packages:
+  - apps/dev-deps
+  - apps/error-processor
+  - apps/script-runner
+  - apps/common
+  - apps/common-test
+  - apps/front-door
+  - apps/check-run-creator
+  - apps/run-preparer
+  - apps/dependency-determiner
+  - apps/dependency-fetcher
+  - apps/report-generator
+  - apps/run-finalizer
+
+allow-different-user: true
+
+system-ghc: true
+
+install-ghc: false
+
+# https://downloads.haskell.org/~ghc/latest/docs/html/users_guide/using.html#ghc-flag--j[%E2%9F%A8n%E2%9F%A9]
+ghc-options:
+  "$locals": -j4
+
+# for profiling compilation add -ddump-timings

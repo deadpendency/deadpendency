@@ -1,0 +1,13 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+[[ -d artifacts/ ]] || mkdir artifacts/
+[[ -d outputs/ ]] || mkdir outputs/
+
+if [ "$TERRAFORM_BACKEND" = "true" ];
+then
+  gcloud secrets versions access latest --secret="$TF_DEPLOY_KEY" > /tmp/credentials.json
+fi
+
+terraform init -backend="$TERRAFORM_BACKEND"
+terraform "$@" | tee outputs/terraform_output.txt

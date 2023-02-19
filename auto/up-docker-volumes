@@ -1,0 +1,4 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+docker volume create --name stack-25-buster > /dev/null

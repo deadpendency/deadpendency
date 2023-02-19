@@ -1,0 +1,11 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+NON_LIVE=$(buildkite-agent meta-data get "app_non_live")
+
+APP_ENV=prod APP_LIVE="$NON_LIVE" terraform/app/pipeline/plan
+APP_ENV=prod APP_LIVE="$NON_LIVE" terraform/app/pipeline/apply-update
+
+.buildkite/commands/sleep-post-deploy

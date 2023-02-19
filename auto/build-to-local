@@ -1,0 +1,16 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+mkdir -p ./dist
+
+# this should always use docker
+RUN_DOCKER=true auto/dev-environment \
+  bash -c "
+    stack clean && \
+    stack build \
+      --copy-bins \
+      --local-bin-path ./dist \
+      --ghc-options=-O2
+    "

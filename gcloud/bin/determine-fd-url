@@ -1,0 +1,14 @@
+#!/bin/bash
+set -Eeuo pipefail
+
+cd "$(dirname "$0")"/../.. || exit
+
+gcloud secrets versions access latest --secret=app-live-checker-key-secret > /tmp/deadpendency-app-live-checker.json
+
+gcloud auth activate-service-account \
+  --key-file /tmp/deadpendency-app-live-checker.json > /dev/null 2>&1
+
+ACTIVE_FD_YAML=$( gcloud run services describe --platform=managed --region=us-central1 --format=yaml "$APP_ENV-$APP_LIVE-deadpendency-action-front-door" )
+
+# get rid of the newline with echo -n
+echo -n "$(grep -m 1 -oP "url: \K.+$" <<< "$ACTIVE_FD_YAML")"

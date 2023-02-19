@@ -1,0 +1,16 @@
+#!/bin/bash
+set -Eexuo pipefail
+
+cd "$(dirname "$0")"/.. || exit
+
+APP_NAME=front-door auto/gcloud-environment ./bin/release-app &
+APP_NAME=check-run-creator auto/gcloud-environment ./bin/release-app &
+APP_NAME=run-preparer auto/gcloud-environment ./bin/release-app &
+APP_NAME=dependency-determiner auto/gcloud-environment ./bin/release-app &
+APP_NAME=dependency-fetcher auto/gcloud-environment ./bin/release-app &
+APP_NAME=report-generator auto/gcloud-environment ./bin/release-app &
+APP_NAME=run-finalizer auto/gcloud-environment ./bin/release-app &
+APP_NAME=error-processor auto/gcloud-environment ./bin/release-app &
+APP_NAME=script-runner auto/gcloud-environment ./bin/release-app &
+
+wait

@@ -73,10 +73,20 @@ And a bunch of other usual suspects in Haskell.
 auto/build
 ```
 
+### Testing
+
+```bash
+auto/verify/haskell/test
+
+# Or I typically just do
+stack test
+```
+
 ### Building / Testing With Docker
 
 ```bash
-RUN_DOCKER=true auto/test
+RUN_DOCKER=true auto/build
+RUN_DOCKER=true auto/verify/haskell/test
 ```
 
 ### Building / Testing Single Packages

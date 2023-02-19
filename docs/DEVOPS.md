@@ -95,7 +95,7 @@ An alternate method was used which is a separate [stack-dev-deps.yaml](../stack-
 ## Overall Release Process
 
 1. [Build a binary for each component](../auto/build-to-local).
-2. [Embedd the binaries in minimal Debian images](../support/app/Dockerfile)
+2. [Embed the binaries in minimal Debian images](../support/app/Dockerfile)
 3. [Push the images to google cloud](../gcloud/bin/release-app)
 4. [Deploy a new blue / green version to non-live](../.buildkite/commands/deploy-app).
 5. [Switch the live / non-live version](../.buildkite/commands/switch-common-front).

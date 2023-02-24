@@ -6,6 +6,10 @@ There are too many small details to list here. To trace it through, step through
 
 ## Technology Choices
 
+### Google Cloud
+
+[Why I chose google cloud](https://alistairb.dev/haskell-on-google-cloud-is-great/). Although, to be fair, `gogol` is currently in a much worse state than `amazonka` which has a regular maintainer.
+
 ### Stack
 
 I think there are many pros and cons to using stack vs cabal. However, this is why I chose stack.
